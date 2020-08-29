@@ -41,12 +41,6 @@ func ReadYAML(filename string) (*YAML, error) {
 	return conf, nil
 }
 
-func GetRedisHost() string {
-	return globalConf.RedisHost
-}
 
-func GetRedisLife() int {
-	return globalConf.RedisLife
-}
 
 
