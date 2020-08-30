@@ -2,6 +2,8 @@ package util
 
 import "encoding/base64"
 
+
+// BigEndian
 func ByteToInt16(b []byte) int16 {
 	return int16(b[0]) << 8 | int16(b[1])
 }

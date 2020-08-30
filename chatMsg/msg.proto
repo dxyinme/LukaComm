@@ -1,0 +1,24 @@
+syntax = "proto3";
+package chatMsg;
+option go_package = "chatMsg";
+
+enum MsgContentType {
+    MsgContentTypeErr = 0;
+    Text = 1;
+    Img = 2;
+    Video = 3;
+}
+
+enum MsgType {
+    MsgTypeErr = 0;
+    Single = 1;
+    Group = 2;
+}
+
+message Msg {
+    string from = 1;
+    string target = 2;
+    bytes content = 3;
+    MsgType msgType = 4;
+    MsgContentType msgContentType = 5;
+}

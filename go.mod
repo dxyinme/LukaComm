@@ -3,6 +3,7 @@ module github.com/dxyinme/LukaComm
 go 1.13
 
 require (
+	github.com/golang/protobuf v1.4.1
 	github.com/json-iterator/go v1.1.10
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/xtaci/kcp-go/v5 v5.5.15
