@@ -7,6 +7,7 @@ import (
 	"github.com/xtaci/kcp-go/v5"
 	"golang.org/x/crypto/pbkdf2"
 	"log"
+	"sync"
 )
 
 type ChannelServer struct {
@@ -18,6 +19,18 @@ type ChannelServer struct {
 	listener *kcp.Listener
 
 	connPool map[string]*KcpSocket
+
+	poolMutex sync.Mutex
+}
+
+func (cs *ChannelServer) GetSocket(name string) *KcpSocket {
+	cs.poolMutex.Lock()
+	defer cs.poolMutex.Unlock()
+	if v, ok := cs.connPool[name]; ok {
+		return v
+	} else {
+		return nil
+	}
 }
 
 func (cs *ChannelServer) ServeMultiConn() error {
@@ -36,7 +49,9 @@ func (cs *ChannelServer) ServeMultiConn() error {
 		if errCheck != nil {
 			continue
 		}
+		cs.poolMutex.Lock()
 		cs.connPool[nowKcpSocket.GetName()] = nowKcpSocket
+		cs.poolMutex.Unlock()
 		select {
 		case <-cs.listenerContext.Done():
 			return nil

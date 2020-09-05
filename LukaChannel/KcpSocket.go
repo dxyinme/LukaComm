@@ -2,7 +2,6 @@ package LukaChannel
 
 import (
 	"github.com/xtaci/kcp-go/v5"
-	"log"
 )
 
 type KcpSocket struct {
@@ -37,7 +36,7 @@ func (kcpSocket *KcpSocket) SendOneToSocket(msg []byte) error {
 		limLen = len(msg)
 		err error
 	)
-	log.Println(msg)
+	//log.Println(msg)
 	for i := 0 ; i < limLen ; i += SocketLength - 1 {
 		nowSend := []byte("")
 		if i + SocketLength - 1 >= limLen {
