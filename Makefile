@@ -9,12 +9,3 @@ GOBUILD   := $(GO) build
 GOTEST    := $(GO) test -p 4
 
 FILES     := $$(find . -name "*.go")
-
-default: test
-
-test:
-	@echo "test"
-	$(GOBUILD) -o bin/LukaClient/LukaClient main/HttpClient.go
-	$(GOBUILD) -o bin/LukaClient/LukaServer main/HttpServer.go
-	$(GOBUILD) -o bin/LukaClient/LukaServer main/grpcServer.go
-	$(GOBUILD) -o bin/LukaClient/LukaServer main/grpcServer.go

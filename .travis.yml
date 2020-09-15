@@ -9,4 +9,3 @@ env:
 script:
   - go test -v ./util
   - go test -v ./util/route
-  - make test
