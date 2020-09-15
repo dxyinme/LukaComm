@@ -15,10 +15,25 @@ enum MsgType {
     Group = 2;
 }
 
+message Ack {
+    string from = 1;
+}
+
 message Msg {
     string from = 1;
     string target = 2;
     bytes content = 3;
     MsgType msgType = 4;
     MsgContentType msgContentType = 5;
+}
+
+message MsgPack {
+    repeated Msg msgList = 1;
+}
+
+service MsgCynic {
+    // Send Msg To Server
+    rpc SendTo(Msg) returns (Ack);
+    // pull myself message from Server
+    rpc Pull(Ack) returns (MsgPack);
 }

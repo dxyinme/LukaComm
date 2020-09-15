@@ -1,1 +1,1 @@
-protoc --go_out=./ ./chatMsg/msg.proto
+protoc --go_out=plugins=grpc:. chatMsg/msg.proto

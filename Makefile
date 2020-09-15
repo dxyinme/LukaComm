@@ -14,5 +14,7 @@ default: test
 
 test:
 	@echo "test"
-	$(GOBUILD) -o bin/LukaClient/LukaClient main/LukaClient.go
-	$(GOBUILD) -o bin/LukaClient/LukaServer main/LukaServer.go
+	$(GOBUILD) -o bin/LukaClient/LukaClient main/HttpClient.go
+	$(GOBUILD) -o bin/LukaClient/LukaServer main/HttpServer.go
+	$(GOBUILD) -o bin/LukaClient/LukaServer main/grpcServer.go
+	$(GOBUILD) -o bin/LukaClient/LukaServer main/grpcServer.go
