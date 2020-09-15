@@ -1,5 +1,6 @@
-package LukaChannel
+package protocol
 
+import "time"
 
 const (
 	MaxMsgLength = 40000
@@ -10,5 +11,7 @@ const (
 	ServerMessageChannelLength = 1000 // the length of server channel
 
 	ConfirmCode = "OK_"
+
+	UsualKCPLiveTime = time.Second
 )
 

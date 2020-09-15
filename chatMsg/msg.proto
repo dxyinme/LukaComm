@@ -21,5 +21,4 @@ message Msg {
     bytes content = 3;
     MsgType msgType = 4;
     MsgContentType msgContentType = 5;
-    bool endConn = 15;
 }

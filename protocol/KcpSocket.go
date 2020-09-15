@@ -1,10 +1,12 @@
-package LukaChannel
+package protocol
 
 import (
 	"github.com/xtaci/kcp-go/v5"
+	"time"
 )
 
 type KcpSocket struct {
+	// handler name
 	name string
 	conn *kcp.UDPSession
 }
@@ -36,7 +38,6 @@ func (kcpSocket *KcpSocket) SendOneToSocket(msg []byte) error {
 		limLen = len(msg)
 		err error
 	)
-	//log.Println(msg)
 	for i := 0 ; i < limLen ; i += SocketLength - 1 {
 		nowSend := []byte("")
 		if i + SocketLength - 1 >= limLen {
@@ -54,6 +55,7 @@ func (kcpSocket *KcpSocket) SendOneToSocket(msg []byte) error {
 	return nil
 }
 
+// 初始化Socket
 func (kcpSocket *KcpSocket) Initial() error {
 	nameByte, err := kcpSocket.ReadOneFromSocket()
 	if err != nil {
@@ -65,4 +67,13 @@ func (kcpSocket *KcpSocket) Initial() error {
 
 func (kcpSocket *KcpSocket) GetName() string {
 	return kcpSocket.name
+}
+
+func (kcpSocket *KcpSocket) SetLiveTime(t time.Duration) error {
+	targetTime := time.Now().Add(t)
+	err := kcpSocket.conn.SetDeadline(targetTime)
+	if err !=  nil {
+		return err
+	}
+	return nil
 }

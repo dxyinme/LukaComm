@@ -1,0 +1,1 @@
+protoc --go_out=./ ./chatMsg/msg.proto
