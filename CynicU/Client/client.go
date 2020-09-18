@@ -37,6 +37,11 @@ func (c *Client) Pull(ack *chatMsg.Ack) (*chatMsg.MsgPack, error){
 	return resp, nil
 }
 
+func (c *Client) PullAll(ack *chatMsg.Ack) (*chatMsg.MsgPack, error) {
+
+	return nil,nil
+}
+
 func (c *Client) Initial(host string, timeout time.Duration) error {
 	var (
 		err error

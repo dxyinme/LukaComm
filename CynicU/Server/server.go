@@ -11,12 +11,17 @@ import (
 type WorkerPool interface {
 	SendTo(msg *chatMsg.Msg)
 	Pull(targetIs string) (*chatMsg.MsgPack,error)
+	PullAll(targetIs string) (*chatMsg.MsgPack,error)
 }
 
 type Server struct {
 	Lis net.Listener
 	name string
 	w WorkerPool
+}
+
+func (s *Server) PullAll(ctx context.Context, in *chatMsg.Ack) (*chatMsg.MsgPack, error) {
+	return s.w.PullAll(in.From)
 }
 
 func (s *Server) SendTo(ctx context.Context, in *chatMsg.Msg) (*chatMsg.Ack, error) {
@@ -61,5 +66,10 @@ func (uiw *UnImplWorkerPool) SendTo(msg *chatMsg.Msg) {
 
 func (uiw *UnImplWorkerPool) Pull(targetIs string) (*chatMsg.MsgPack,error) {
 	log.Println("No Impl for WorkerPool - func Pull")
+	return nil,nil
+}
+
+func (uiw *UnImplWorkerPool) PullAll(targetIs string) (*chatMsg.MsgPack,error) {
+	log.Println("No Impl for WorkerPool - func PullAll")
 	return nil,nil
 }
