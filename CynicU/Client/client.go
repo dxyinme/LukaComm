@@ -38,8 +38,13 @@ func (c *Client) Pull(ack *chatMsg.Ack) (*chatMsg.MsgPack, error){
 }
 
 func (c *Client) PullAll(ack *chatMsg.Ack) (*chatMsg.MsgPack, error) {
-
-	return nil,nil
+	nowContext,cancel := context.WithTimeout(context.Background(), c.timeout)
+	defer cancel()
+	resp, err := c.client.PullAll(nowContext, ack)
+	if err != nil {
+		return nil, err
+	}
+	return resp,nil
 }
 
 func (c *Client) Initial(host string, timeout time.Duration) error {
