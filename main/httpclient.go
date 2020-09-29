@@ -27,7 +27,7 @@ func httpCall(name string) {
 }
 
 func main()  {
-	var reqCount int = 25000
+	var reqCount int = 10000
 	startTime := time.Now()
 	var wg sync.WaitGroup
 	wg.Add(reqCount)

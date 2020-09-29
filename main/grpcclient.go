@@ -11,7 +11,7 @@ import (
 
 func main() {
 	startTime := time.Now()
-	var reqCount int = 25000
+	var reqCount int = 10000
 	var wg sync.WaitGroup
 	wg.Add(reqCount)
 	for i := 0 ; i < reqCount ; i ++ {
