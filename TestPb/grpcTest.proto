@@ -1,0 +1,15 @@
+syntax = "proto3";
+package TestPb;
+option go_package="TestPb";
+
+message TestMsg {
+    string name = 1;
+}
+
+message TestMsgReply {
+    string ans = 1;
+}
+
+service TestServer {
+    rpc grpcCall(TestMsg) returns (TestMsgReply);
+}

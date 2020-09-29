@@ -35,9 +35,9 @@ message MsgPack {
 
 service MsgCynic {
     // Send Msg To Server
-    rpc SendTo(chatMsg.Msg) returns (chatMsg.Ack);
+    rpc SendTo(Msg) returns (Ack);
     // pull myself message from Server
-    rpc Pull(chatMsg.Ack) returns (chatMsg.MsgPack);
+    rpc Pull(Ack) returns (MsgPack);
     // pull all message from cluster
-    rpc PullAll(chatMsg.Ack) returns (chatMsg.MsgPack);
+    rpc PullAll(Ack) returns (MsgPack);
 }
