@@ -15,10 +15,8 @@ enum MsgType {
     Group = 2;
 }
 
-// 在SendTo的时候，Ack.from表示的是信息发送者的名字。
-// 在Pull的时候，Ack.from表示的是需谁在拉取信息。
 message Ack {
-    string from = 1;
+    string md5 = 1;
 }
 
 message Msg {
@@ -33,11 +31,15 @@ message MsgPack {
     repeated Msg msgList = 1;
 }
 
+message PullReq {
+    string from = 1;
+}
+
 service MsgCynic {
     // Send Msg To Server
     rpc SendTo(Msg) returns (Ack);
     // pull myself message from Server
-    rpc Pull(Ack) returns (MsgPack);
+    rpc Pull(PullReq) returns (MsgPack);
     // pull all message from cluster
-    rpc PullAll(Ack) returns (MsgPack);
+    rpc PullAll(PullReq) returns (MsgPack);
 }

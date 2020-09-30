@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/dxyinme/LukaComm/chatMsg"
+	"github.com/dxyinme/LukaComm/util/MD5"
+	"github.com/golang/protobuf/proto"
 	"google.golang.org/grpc"
 	"time"
 )
@@ -17,30 +19,38 @@ type Client struct {
 func (c *Client) SendTo(msg *chatMsg.Msg) error {
 	nowContext,cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
-	resp,err := c.client.SendTo(nowContext, msg)
+	var (
+		md5Msg string
+		pbMsg []byte
+		err error
+		resp *chatMsg.Ack
+	)
+	resp,err = c.client.SendTo(nowContext, msg)
 	if err != nil {
 		return err
 	}
-	if resp.From != msg.From {
-		return fmt.Errorf("error Ack , want %s, but %s", msg.From, resp.From)
+	pbMsg,err = proto.Marshal(msg)
+	md5Msg = MD5.CalcMD5(pbMsg)
+	if resp.Md5 != md5Msg {
+		return fmt.Errorf("error Ack , want %s, but %s", md5Msg, resp.Md5)
 	}
 	return nil
 }
 
-func (c *Client) Pull(ack *chatMsg.Ack) (*chatMsg.MsgPack, error){
+func (c *Client) Pull(req *chatMsg.PullReq) (*chatMsg.MsgPack, error){
 	nowContext,cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
-	resp, err := c.client.Pull(nowContext, ack)
+	resp, err := c.client.Pull(nowContext, req)
 	if err != nil {
 		return nil,err
 	}
 	return resp, nil
 }
 
-func (c *Client) PullAll(ack *chatMsg.Ack) (*chatMsg.MsgPack, error) {
+func (c *Client) PullAll(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
 	nowContext,cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
-	resp, err := c.client.PullAll(nowContext, ack)
+	resp, err := c.client.PullAll(nowContext, req)
 	if err != nil {
 		return nil, err
 	}

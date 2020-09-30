@@ -13,16 +13,23 @@ func main() {
 	startTime := time.Now()
 	var reqCount int = 10000
 	var wg sync.WaitGroup
+	conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	defer conn.Close()
 	wg.Add(reqCount)
 	for i := 0 ; i < reqCount ; i ++ {
 		go func() {
 			func() {
-				conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
-				if err != nil {
-					log.Println(err)
-					return
-				}
-				defer conn.Close()
+				// [use in reconnect time]
+				//conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
+				//if err != nil {
+				//	log.Println(err)
+				//	return
+				//}
+				//defer conn.Close()
 				c := pb.NewTestServerClient(conn)
 				resp,err := c.GrpcCall(context.Background(), &pb.TestMsg{Name:"UUUUU"})
 				if err != nil {

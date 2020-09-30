@@ -3,6 +3,8 @@ package Server
 import (
 	"context"
 	"github.com/dxyinme/LukaComm/chatMsg"
+	"github.com/dxyinme/LukaComm/util/MD5"
+	"github.com/golang/protobuf/proto"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -20,7 +22,7 @@ type Server struct {
 	w WorkerPool
 }
 
-func (s *Server) PullAll(ctx context.Context, in *chatMsg.Ack) (*chatMsg.MsgPack, error) {
+func (s *Server) PullAll(ctx context.Context, in *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
 	return s.w.PullAll(in.From)
 }
 
@@ -28,10 +30,14 @@ func (s *Server) SendTo(ctx context.Context, in *chatMsg.Msg) (*chatMsg.Ack, err
 	defer func(){
 		go s.w.SendTo(in)
 	}()
-	return &chatMsg.Ack{From: in.From},nil
+	pbIn, err := proto.Marshal(in)
+	if err != nil {
+		return nil, err
+	}
+	return &chatMsg.Ack{Md5: MD5.CalcMD5(pbIn)},nil
 }
 
-func (s *Server) Pull(ctx context.Context, in *chatMsg.Ack) (*chatMsg.MsgPack, error) {
+func (s *Server) Pull(ctx context.Context, in *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
 	return s.w.Pull(in.From)
 }
 
@@ -66,10 +72,10 @@ func (uiw *UnImplWorkerPool) SendTo(msg *chatMsg.Msg) {
 
 func (uiw *UnImplWorkerPool) Pull(targetIs string) (*chatMsg.MsgPack,error) {
 	log.Println("No Impl for WorkerPool - func Pull")
-	return nil,nil
+	return &chatMsg.MsgPack{},nil
 }
 
 func (uiw *UnImplWorkerPool) PullAll(targetIs string) (*chatMsg.MsgPack,error) {
 	log.Println("No Impl for WorkerPool - func PullAll")
-	return nil,nil
+	return &chatMsg.MsgPack{},nil
 }
