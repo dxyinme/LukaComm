@@ -9,5 +9,4 @@ env:
 script:
   - go test -v ./util
   - go test -v ./util/route
-  - go build ./main/CynicUExamle/CynicUClient.go
-  - go build ./main/CynicUExamle/CynicUserver.go
+  - go test -v ./util/MD5
