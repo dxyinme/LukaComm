@@ -14,6 +14,7 @@ type Client struct {
 	timeout time.Duration
 	conn 	*grpc.ClientConn
 	client  chatMsg.MsgCynicClient
+	host 	string
 }
 
 func (c *Client) SendTo(msg *chatMsg.Msg) error {
@@ -32,7 +33,7 @@ func (c *Client) SendTo(msg *chatMsg.Msg) error {
 	pbMsg,err = proto.Marshal(msg)
 	md5Msg = MD5.CalcMD5(pbMsg)
 	if resp.Md5 != md5Msg {
-		return fmt.Errorf("error Ack , want %s, but %s", md5Msg, resp.Md5)
+		return fmt.Errorf("error ack")
 	}
 	return nil
 }
@@ -52,7 +53,17 @@ func (c *Client) PullAll(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
 	defer cancel()
 	resp, err := c.client.PullAll(nowContext, req)
 	if err != nil {
-		return nil, err
+		if err != fmt.Errorf("NoMessage") {
+			// reconnect in RPC FAIL time
+			err = c.reconnect()
+			if err != nil {
+				return nil, err
+			}
+			resp, err = c.client.PullAll(nowContext, req)
+			return resp, nil
+		} else {
+			return nil, err
+		}
 	}
 	return resp,nil
 }
@@ -61,13 +72,24 @@ func (c *Client) Initial(host string, timeout time.Duration) error {
 	var (
 		err error
 	)
-	conn, err := grpc.Dial(host,grpc.WithInsecure())
+	conn, err := grpc.Dial(host, grpc.WithInsecure())
+	if err != nil {
+		return err
+	}
+	c.host = host
+	c.conn = conn
+	c.client = chatMsg.NewMsgCynicClient(c.conn)
+	c.timeout = timeout
+	return nil
+}
+
+func (c *Client) reconnect() error {
+	conn,err := grpc.Dial(c.host, grpc.WithInsecure())
 	if err != nil {
 		return err
 	}
 	c.conn = conn
 	c.client = chatMsg.NewMsgCynicClient(c.conn)
-	c.timeout = timeout
 	return nil
 }
 

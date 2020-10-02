@@ -4,7 +4,6 @@ import (
 	"fmt"
 	CynicUClient "github.com/dxyinme/LukaComm/CynicU/Client"
 	"github.com/dxyinme/LukaComm/chatMsg"
-	"github.com/golang/glog"
 	"log"
 	"time"
 )
@@ -15,7 +14,7 @@ func main()  {
 	client := &CynicUClient.Client{}
 	err = client.Initial("localhost:8080", time.Second*3)
 	if err != nil {
-		glog.Error(err)
+		log.Fatal(err)
 	}
 
 	err = client.SendTo(&chatMsg.Msg{
