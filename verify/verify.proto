@@ -1,0 +1,36 @@
+syntax="proto3";
+package verify;
+option go_package="verify";
+
+
+message UserInfo {
+    string uid = 1;
+    string userName = 2;
+    string password = 3;
+}
+
+message LoginReq {
+    UserInfo user = 1;
+    string messCode = 2;
+}
+
+message LoginRsp {
+    string connectHost = 1;
+    string messCode = 2;
+    string loginResult = 3;
+}
+
+message SignUpReq {
+    string userName = 1;
+    string password = 2;
+    string mailAddr = 3;
+}
+
+message SignUpRsp {
+    string signUpResult = 1;
+}
+
+service UserService {
+    rpc SignUp (SignUpReq) returns (SignUpRsp);
+    rpc Login (LoginReq) returns (LoginRsp);
+}
