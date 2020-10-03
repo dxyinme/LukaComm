@@ -88,6 +88,7 @@ func (c *Client) reconnect() error {
 	if err != nil {
 		return err
 	}
+	c.Close()
 	c.conn = conn
 	c.client = chatMsg.NewMsgCynicClient(c.conn)
 	return nil

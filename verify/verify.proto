@@ -1,12 +1,12 @@
 syntax="proto3";
 package verify;
-option go_package="verify";
 
 
 message UserInfo {
     string uid = 1;
     string userName = 2;
     string password = 3;
+    string mailAddr = 4;
 }
 
 message LoginReq {
@@ -21,13 +21,12 @@ message LoginRsp {
 }
 
 message SignUpReq {
-    string userName = 1;
-    string password = 2;
-    string mailAddr = 3;
+    UserInfo signUser = 1;
 }
 
 message SignUpRsp {
     string signUpResult = 1;
+    UserInfo signUserReply = 2;
 }
 
 service UserService {

@@ -1,6 +1,5 @@
 syntax = "proto3";
 package chatMsg;
-option go_package = "chatMsg";
 
 enum MsgContentType {
     MsgContentTypeErr = 0;

@@ -5,6 +5,11 @@ import (
 	"testing"
 )
 
+func TestFun(t *testing.T) {
+	tm := uint64(1<<62)
+	log.Println(int(tm))
+}
+
 func TestJSON(t *testing.T) {
 	var (
 		err error

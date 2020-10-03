@@ -1,6 +1,5 @@
 syntax = "proto3";
 package TestPb;
-option go_package="TestPb";
 
 message TestMsg {
     string name = 1;
