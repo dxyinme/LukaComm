@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/golang/protobuf v1.4.2
+	github.com/gomodule/redigo v1.8.2
 	github.com/json-iterator/go v1.1.10
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/spaolacci/murmur3 v1.1.0

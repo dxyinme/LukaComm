@@ -15,9 +15,8 @@ message LoginReq {
 }
 
 message LoginRsp {
-    string connectHost = 1;
-    string messCode = 2;
-    string loginResult = 3;
+    string messCode = 1;
+    string loginResult = 2;
 }
 
 message SignUpReq {
