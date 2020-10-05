@@ -160,6 +160,7 @@ type LoginRsp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// verify card [messCode]
 	MessCode    string `protobuf:"bytes,1,opt,name=messCode,proto3" json:"messCode,omitempty"`
 	LoginResult string `protobuf:"bytes,2,opt,name=loginResult,proto3" json:"loginResult,omitempty"`
 }

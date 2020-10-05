@@ -15,6 +15,7 @@ message LoginReq {
 }
 
 message LoginRsp {
+    // verify card [messCode]
     string messCode = 1;
     string loginResult = 2;
 }
