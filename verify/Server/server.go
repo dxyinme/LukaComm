@@ -12,7 +12,7 @@ type Server struct {
 
 func (s *Server) Login(ctx context.Context, req *verify.LoginReq) (*verify.LoginRsp, error) {
 	var result string
-	err := s.userInfoKv.CheckUser(req.User)
+	err := s.userInfoKv.CheckUser(req)
 	if err == nil {
 		result = Const.LoginSuccess
 	} else {

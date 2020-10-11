@@ -2,14 +2,27 @@ syntax = "proto3";
 package Assigneer;
 
 message SyncLocationReq {
-    uint32 uidHash = 1;
+    uint32 keeperID = 1;
 }
 
 message SyncLocationRsp {
-    // the location server name
-    string location = 1;
+    repeated uint32 keeperIDs = 1;
+}
+
+message RemoveKeeperReq {
+    uint32 keeperID = 1;
+}
+
+message AddKeeperReq {
+    uint32 keeperID = 1;
+}
+
+message AssignAck {
+    string ackMessage = 1;
 }
 
 service Assigneer {
     rpc SyncLocation (SyncLocationReq) returns (SyncLocationRsp);
+    rpc RemoveKeeper (RemoveKeeperReq) returns (AssignAck);
+    rpc AddKeeper (AddKeeperReq) returns (AssignAck);
 }

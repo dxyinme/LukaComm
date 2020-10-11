@@ -1,6 +1,9 @@
 package CoHash
 
-import "testing"
+import (
+	"sync"
+	"testing"
+)
 
 
 func TestAssignTo(t *testing.T) {
@@ -8,32 +11,36 @@ func TestAssignTo(t *testing.T) {
 		expected 	uint32
 		result		uint32
 	)
-	AppendKeeper(12)
-	AppendKeeper(15)
-	AppendKeeper(229)
+	ats := AssignToStruct{
+		muAssign:  sync.RWMutex{},
+		keeperIDs: []int{},
+	}
+	ats.AppendKeeper(12)
+	ats.AppendKeeper(229)
+	ats.AppendKeeper(15)
 
 	expected = 229
-	result = AssignTo(48)
+	result = ats.AssignTo(48)
 	if result != expected {
 		t.Errorf("expected %v but %v", expected, result)
 	}
 	expected = 12
-	result = AssignTo(314)
+	result = ats.AssignTo(314)
 	if result != expected {
 		t.Errorf("expected %v but %v", expected, result)
 	}
 
-	AppendKeeper(379)
+	ats.AppendKeeper(379)
 
 	expected = 379
-	result = AssignTo(314)
+	result = ats.AssignTo(314)
 	if result != expected {
 		t.Errorf("expected %v but %v", expected, result)
 	}
 
-	_ = RemoveKeeper(15)
+	_ = ats.RemoveKeeper(15)
 	expected = 229
-	result = AssignTo(14)
+	result = ats.AssignTo(14)
 	if result != expected {
 		t.Errorf("expected %v but %v", expected, result)
 	}

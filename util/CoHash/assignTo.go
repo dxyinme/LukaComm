@@ -6,25 +6,25 @@ import (
 	"sync"
 )
 
-var (
+
+type AssignToStruct struct {
 	muAssign sync.RWMutex
-	keeperIDs []int
-)
-
-
-func AppendKeeper(keeperId uint32) {
-	muAssign.Lock()
-	defer muAssign.Unlock()
-	keeperIDs = append(keeperIDs, int(keeperId))
-	sort.Ints(keeperIDs)
+	KeeperIDs []int
 }
 
-func RemoveKeeper(keeperId uint32) error {
-	muAssign.Lock()
-	defer muAssign.Unlock()
+func (a *AssignToStruct) AppendKeeper(keeperId uint32) {
+	a.muAssign.Lock()
+	defer a.muAssign.Unlock()
+	a.KeeperIDs = append(a.KeeperIDs, int(keeperId))
+	sort.Ints(a.KeeperIDs)
+}
+
+func (a *AssignToStruct) RemoveKeeper(keeperId uint32) error {
+	a.muAssign.Lock()
+	defer a.muAssign.Unlock()
 	var wanted int = -1
-	for i := 0 ; i < len(keeperIDs); i ++ {
-		if keeperIDs[i] == int(keeperId) {
+	for i := 0 ; i < len(a.KeeperIDs); i ++ {
+		if a.KeeperIDs[i] == int(keeperId) {
 			wanted = i
 			break
 		}
@@ -32,29 +32,29 @@ func RemoveKeeper(keeperId uint32) error {
 	if wanted == -1 {
 		return fmt.Errorf("Not Found In keeperIDs")
 	}
-	keeperIDs = append(keeperIDs[:wanted], keeperIDs[wanted + 1:] ...)
+	a.KeeperIDs = append(a.KeeperIDs[:wanted], a.KeeperIDs[wanted + 1:] ...)
 	return nil
 }
 
-func AssignTo(MurMur3uid uint32) uint32 {
-	muAssign.RLock()
-	muAssign.RUnlock()
+func (a *AssignToStruct) AssignTo(MurMur3uid uint32) uint32 {
+	a.muAssign.RLock()
+	a.muAssign.RUnlock()
 	var (
 		Ans int = 0
 		L int = 1
-		R int = len(keeperIDs)
+		R int = len(a.KeeperIDs)
 	)
 	for ;L <= R; {
 		M := (L + R) / 2
-		if keeperIDs[M - 1] <= int(MurMur3uid) {
+		if a.KeeperIDs[M - 1] <= int(MurMur3uid) {
 			Ans = M
 			L = M + 1
 		} else {
 			R = M - 1
 		}
 	}
-	if Ans == len(keeperIDs) {
+	if Ans == len(a.KeeperIDs) {
 		Ans = 0
 	}
-	return uint32(keeperIDs[Ans])
+	return uint32(a.KeeperIDs[Ans])
 }
