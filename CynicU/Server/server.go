@@ -11,8 +11,11 @@ import (
 )
 
 type WorkerPool interface {
+	// send message.
 	SendTo(msg *chatMsg.Msg)
+	// daily use pull user's message.
 	Pull(targetIs string) (*chatMsg.MsgPack,error)
+	// do not use PullAll but cluster is updating.
 	PullAll(targetIs string) (*chatMsg.MsgPack,error)
 }
 

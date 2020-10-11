@@ -43,7 +43,16 @@ func (c *Client) Pull(req *chatMsg.PullReq) (*chatMsg.MsgPack, error){
 	defer cancel()
 	resp, err := c.client.Pull(nowContext, req)
 	if err != nil {
-		return nil,err
+		// reconnect in RPC FAIL time
+		err = c.reconnect()
+		if err != nil {
+			return nil, err
+		}
+		resp, err = c.client.Pull(nowContext, req)
+		if err != nil {
+			return nil, err
+		}
+		return resp, nil
 	}
 	return resp, nil
 }
@@ -53,17 +62,16 @@ func (c *Client) PullAll(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
 	defer cancel()
 	resp, err := c.client.PullAll(nowContext, req)
 	if err != nil {
-		if err != fmt.Errorf("NoMessage") {
-			// reconnect in RPC FAIL time
-			err = c.reconnect()
-			if err != nil {
-				return nil, err
-			}
-			resp, err = c.client.PullAll(nowContext, req)
-			return resp, nil
-		} else {
+		// reconnect in RPC FAIL time
+		err = c.reconnect()
+		if err != nil {
 			return nil, err
 		}
+		resp, err = c.client.PullAll(nowContext, req)
+		if err != nil {
+			return nil, err
+		}
+		return resp, nil
 	}
 	return resp,nil
 }
@@ -96,6 +104,6 @@ func (c *Client) reconnect() error {
 
 func (c *Client) Close() {
 	if c.conn != nil {
-		c.conn.Close()
+		_ = c.conn.Close()
 	}
 }
