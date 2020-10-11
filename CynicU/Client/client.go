@@ -26,6 +26,7 @@ func (c *Client) SendTo(msg *chatMsg.Msg) error {
 		err error
 		resp *chatMsg.Ack
 	)
+	msg.SendTime = time.Now().String()
 	resp,err = c.client.SendTo(nowContext, msg)
 	if err != nil {
 		return err
