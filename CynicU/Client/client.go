@@ -77,6 +77,15 @@ func (c *Client) PullAll(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
 	return resp,nil
 }
 
+func (c *Client) CheckAlive() bool {
+	_, err := c.client.CheckAlive(
+		context.Background(),
+		&chatMsg.KeepAlive{
+			CheckAlive: time.Now().String(),
+		})
+	return err == nil
+}
+
 func (c *Client) Initial(host string, timeout time.Duration) error {
 	var (
 		err error

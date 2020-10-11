@@ -35,6 +35,10 @@ message PullReq {
     string from = 1;
 }
 
+message KeepAlive {
+    string checkAlive = 1;
+}
+
 service MsgCynic {
     // Send Msg To Server
     rpc SendTo(Msg) returns (Ack);
@@ -42,4 +46,6 @@ service MsgCynic {
     rpc Pull(PullReq) returns (MsgPack);
     // pull all message from cluster
     rpc PullAll(PullReq) returns (MsgPack);
+    // check if this Keeper is alive or not
+    rpc CheckAlive(KeepAlive) returns (KeepAlive);
 }
