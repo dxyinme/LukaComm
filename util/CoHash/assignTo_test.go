@@ -13,7 +13,7 @@ func TestAssignTo(t *testing.T) {
 	)
 	ats := AssignToStruct{
 		muAssign:  sync.RWMutex{},
-		keeperIDs: []int{},
+		KeeperIDs: []int{},
 	}
 	ats.AppendKeeper(12)
 	ats.AppendKeeper(229)

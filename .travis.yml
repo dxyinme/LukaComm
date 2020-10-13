@@ -10,3 +10,4 @@ script:
   - go test -v ./util
   - go test -v ./util/route
   - go test -v ./util/MD5
+  - go test -v ./util/CoHash

@@ -12,6 +12,12 @@ type AssignToStruct struct {
 	KeeperIDs []int
 }
 
+func (a *AssignToStruct) SetKeeperIDs(NewKeeperIDs []int) {
+	a.muAssign.Lock()
+	defer a.muAssign.Unlock()
+	a.KeeperIDs = NewKeeperIDs
+}
+
 func (a *AssignToStruct) AppendKeeper(keeperId uint32) {
 	a.muAssign.Lock()
 	defer a.muAssign.Unlock()
