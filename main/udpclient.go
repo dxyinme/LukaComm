@@ -41,6 +41,7 @@ func main()  {
 				log.Printf("resp %v", []byte(respString))
 				log.Printf("want %v", []byte("echo" + name))
 			}
+			log.Println("OK")
 			wg.Done()
 		}("UUUUU")
 	}
