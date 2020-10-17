@@ -8,6 +8,7 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"sync"
 )
 
 type WorkerPool interface {
@@ -23,6 +24,53 @@ type Server struct {
 	Lis net.Listener
 	name string
 	w WorkerPool
+}
+
+func (s *Server) MsgConn(srv chatMsg.MsgCynic_MsgConnServer) error {
+	var (
+		wg sync.WaitGroup
+		uid string
+	)
+	// get user-client's uid
+	getUid, err := srv.Recv()
+	if err != nil {
+		return err
+	}
+	uid = getUid.From
+
+	wg.Add(2)
+	go func() {
+		// recv loop:
+		// receive the message from user-client
+		for {
+			msg,err := srv.Recv()
+			if err != nil {
+				break
+			}
+			s.w.SendTo(msg)
+		}
+		wg.Done()
+	}()
+
+	go func() {
+		// send loop:
+		// send the message to user-client
+		for {
+			pack,err := s.w.Pull(uid)
+			if err != nil {
+				break
+			}
+			if len(pack.MsgList) != 0 {
+				err = srv.Send(pack)
+				if err != nil {
+					break
+				}
+			}
+		}
+		wg.Done()
+	}()
+	wg.Wait()
+	return nil
 }
 
 func (s *Server) PullAll(ctx context.Context, in *chatMsg.PullReq) (*chatMsg.MsgPack, error) {

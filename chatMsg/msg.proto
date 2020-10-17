@@ -48,4 +48,6 @@ service MsgCynic {
     rpc PullAll(PullReq) returns (MsgPack);
     // check if this Keeper is alive or not
     rpc CheckAlive(KeepAlive) returns (KeepAlive);
+    // the long connection to transport message
+    rpc MsgConn(stream Msg) returns (stream MsgPack);
 }
