@@ -433,6 +433,7 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AssigneerClient interface {
+	// sync the keeperIDs
 	SyncLocation(ctx context.Context, in *SyncLocationReq, opts ...grpc.CallOption) (*SyncLocationRsp, error)
 	RemoveKeeper(ctx context.Context, in *RemoveKeeperReq, opts ...grpc.CallOption) (*AssignAck, error)
 	AddKeeper(ctx context.Context, in *AddKeeperReq, opts ...grpc.CallOption) (*AssignAck, error)
@@ -475,6 +476,7 @@ func (c *assigneerClient) AddKeeper(ctx context.Context, in *AddKeeperReq, opts 
 
 // AssigneerServer is the server API for Assigneer service.
 type AssigneerServer interface {
+	// sync the keeperIDs
 	SyncLocation(context.Context, *SyncLocationReq) (*SyncLocationRsp, error)
 	RemoveKeeper(context.Context, *RemoveKeeperReq) (*AssignAck, error)
 	AddKeeper(context.Context, *AddKeeperReq) (*AssignAck, error)

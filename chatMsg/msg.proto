@@ -25,6 +25,8 @@ message Msg {
     MsgType msgType = 4;
     MsgContentType msgContentType = 5;
     string sendTime = 6;
+    // group chat usage.
+    string groupName = 7;
 }
 
 message MsgPack {
