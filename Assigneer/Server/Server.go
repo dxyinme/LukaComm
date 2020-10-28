@@ -16,6 +16,10 @@ type Server struct {
 	hosts map[uint32]string
 }
 
+func (s *Server) Initial() {
+	s.hosts = make(map[uint32]string)
+}
+
 func (s *Server) SyncLocation(context.Context, *Assigneer.SyncLocationReq) (*Assigneer.SyncLocationRsp, error) {
 	var ret []uint32
 	var retHost []string
