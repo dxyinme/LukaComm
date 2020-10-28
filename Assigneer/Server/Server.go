@@ -58,10 +58,10 @@ func (s *Server) AddKeeper(ctx context.Context,in *Assigneer.AddKeeperReq) (*Ass
 
 func (s *Server) syncLocationNotify() {
 	for _,v := range s.hosts {
-		go func() {
+		go func(host string) {
 			var err error
 			client := &CynicUClient.Client{}
-			err = client.Initial(v, time.Second * 3)
+			err = client.Initial(host, time.Second * 3)
 			if err != nil {
 				glog.Error(err)
 				return
@@ -71,6 +71,6 @@ func (s *Server) syncLocationNotify() {
 			if err != nil {
 				glog.Error(err)
 			}
-		}()
+		}(v)
 	}
 }

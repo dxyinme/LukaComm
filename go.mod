@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
+	github.com/golang/protobuf v1.4.0
 	github.com/gomodule/redigo/redis v0.0.0-20200429221454-e14091dffc1b
 	github.com/json-iterator/go v1.1.10
 	github.com/robfig/cron/v3 v3.0.1
