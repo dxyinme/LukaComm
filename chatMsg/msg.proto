@@ -50,4 +50,6 @@ service MsgCynic {
     rpc PullAll(PullReq) returns (MsgPack);
     // check if this Keeper is alive or not
     rpc CheckAlive(KeepAlive) returns (KeepAlive);
+    // notify keeper to sync cluster message
+    rpc SyncLocationNotify(KeepAlive) returns (KeepAlive);
 }

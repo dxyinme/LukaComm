@@ -451,7 +451,7 @@ var file_chatMsg_msg_proto_rawDesc = []byte{
 	0x2a, 0x30, 0x0a, 0x07, 0x4d, 0x73, 0x67, 0x54, 0x79, 0x70, 0x65, 0x12, 0x0e, 0x0a, 0x0a, 0x4d,
 	0x73, 0x67, 0x54, 0x79, 0x70, 0x65, 0x45, 0x72, 0x72, 0x10, 0x00, 0x12, 0x0a, 0x0a, 0x06, 0x53,
 	0x69, 0x6e, 0x67, 0x6c, 0x65, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x47, 0x72, 0x6f, 0x75, 0x70,
-	0x10, 0x02, 0x32, 0xc1, 0x01, 0x0a, 0x08, 0x4d, 0x73, 0x67, 0x43, 0x79, 0x6e, 0x69, 0x63, 0x12,
+	0x10, 0x02, 0x32, 0xff, 0x01, 0x0a, 0x08, 0x4d, 0x73, 0x67, 0x43, 0x79, 0x6e, 0x69, 0x63, 0x12,
 	0x24, 0x0a, 0x06, 0x53, 0x65, 0x6e, 0x64, 0x54, 0x6f, 0x12, 0x0c, 0x2e, 0x63, 0x68, 0x61, 0x74,
 	0x4d, 0x73, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x1a, 0x0c, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x4d, 0x73,
 	0x67, 0x2e, 0x41, 0x63, 0x6b, 0x12, 0x2a, 0x0a, 0x04, 0x50, 0x75, 0x6c, 0x6c, 0x12, 0x10, 0x2e,
@@ -463,7 +463,11 @@ var file_chatMsg_msg_proto_rawDesc = []byte{
 	0x12, 0x34, 0x0a, 0x0a, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x41, 0x6c, 0x69, 0x76, 0x65, 0x12, 0x12,
 	0x2e, 0x63, 0x68, 0x61, 0x74, 0x4d, 0x73, 0x67, 0x2e, 0x4b, 0x65, 0x65, 0x70, 0x41, 0x6c, 0x69,
 	0x76, 0x65, 0x1a, 0x12, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x4d, 0x73, 0x67, 0x2e, 0x4b, 0x65, 0x65,
-	0x70, 0x41, 0x6c, 0x69, 0x76, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x70, 0x41, 0x6c, 0x69, 0x76, 0x65, 0x12, 0x3c, 0x0a, 0x12, 0x53, 0x79, 0x6e, 0x63, 0x4c, 0x6f,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x79, 0x12, 0x12, 0x2e, 0x63,
+	0x68, 0x61, 0x74, 0x4d, 0x73, 0x67, 0x2e, 0x4b, 0x65, 0x65, 0x70, 0x41, 0x6c, 0x69, 0x76, 0x65,
+	0x1a, 0x12, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x4d, 0x73, 0x67, 0x2e, 0x4b, 0x65, 0x65, 0x70, 0x41,
+	0x6c, 0x69, 0x76, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -497,12 +501,14 @@ var file_chatMsg_msg_proto_depIdxs = []int32{
 	5, // 4: chatMsg.MsgCynic.Pull:input_type -> chatMsg.PullReq
 	5, // 5: chatMsg.MsgCynic.PullAll:input_type -> chatMsg.PullReq
 	6, // 6: chatMsg.MsgCynic.CheckAlive:input_type -> chatMsg.KeepAlive
-	2, // 7: chatMsg.MsgCynic.SendTo:output_type -> chatMsg.Ack
-	4, // 8: chatMsg.MsgCynic.Pull:output_type -> chatMsg.MsgPack
-	4, // 9: chatMsg.MsgCynic.PullAll:output_type -> chatMsg.MsgPack
-	6, // 10: chatMsg.MsgCynic.CheckAlive:output_type -> chatMsg.KeepAlive
-	7, // [7:11] is the sub-list for method output_type
-	3, // [3:7] is the sub-list for method input_type
+	6, // 7: chatMsg.MsgCynic.SyncLocationNotify:input_type -> chatMsg.KeepAlive
+	2, // 8: chatMsg.MsgCynic.SendTo:output_type -> chatMsg.Ack
+	4, // 9: chatMsg.MsgCynic.Pull:output_type -> chatMsg.MsgPack
+	4, // 10: chatMsg.MsgCynic.PullAll:output_type -> chatMsg.MsgPack
+	6, // 11: chatMsg.MsgCynic.CheckAlive:output_type -> chatMsg.KeepAlive
+	6, // 12: chatMsg.MsgCynic.SyncLocationNotify:output_type -> chatMsg.KeepAlive
+	8, // [8:13] is the sub-list for method output_type
+	3, // [3:8] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
 	3, // [3:3] is the sub-list for extension extendee
 	0, // [0:3] is the sub-list for field type_name
@@ -616,6 +622,8 @@ type MsgCynicClient interface {
 	PullAll(ctx context.Context, in *PullReq, opts ...grpc.CallOption) (*MsgPack, error)
 	// check if this Keeper is alive or not
 	CheckAlive(ctx context.Context, in *KeepAlive, opts ...grpc.CallOption) (*KeepAlive, error)
+	// notify keeper to sync cluster message
+	SyncLocationNotify(ctx context.Context, in *KeepAlive, opts ...grpc.CallOption) (*KeepAlive, error)
 }
 
 type msgCynicClient struct {
@@ -662,6 +670,15 @@ func (c *msgCynicClient) CheckAlive(ctx context.Context, in *KeepAlive, opts ...
 	return out, nil
 }
 
+func (c *msgCynicClient) SyncLocationNotify(ctx context.Context, in *KeepAlive, opts ...grpc.CallOption) (*KeepAlive, error) {
+	out := new(KeepAlive)
+	err := c.cc.Invoke(ctx, "/chatMsg.MsgCynic/SyncLocationNotify", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgCynicServer is the server API for MsgCynic service.
 type MsgCynicServer interface {
 	// Send Msg To Server
@@ -672,6 +689,8 @@ type MsgCynicServer interface {
 	PullAll(context.Context, *PullReq) (*MsgPack, error)
 	// check if this Keeper is alive or not
 	CheckAlive(context.Context, *KeepAlive) (*KeepAlive, error)
+	// notify keeper to sync cluster message
+	SyncLocationNotify(context.Context, *KeepAlive) (*KeepAlive, error)
 }
 
 // UnimplementedMsgCynicServer can be embedded to have forward compatible implementations.
@@ -689,6 +708,9 @@ func (*UnimplementedMsgCynicServer) PullAll(context.Context, *PullReq) (*MsgPack
 }
 func (*UnimplementedMsgCynicServer) CheckAlive(context.Context, *KeepAlive) (*KeepAlive, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckAlive not implemented")
+}
+func (*UnimplementedMsgCynicServer) SyncLocationNotify(context.Context, *KeepAlive) (*KeepAlive, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SyncLocationNotify not implemented")
 }
 
 func RegisterMsgCynicServer(s *grpc.Server, srv MsgCynicServer) {
@@ -767,6 +789,24 @@ func _MsgCynic_CheckAlive_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MsgCynic_SyncLocationNotify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(KeepAlive)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgCynicServer).SyncLocationNotify(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chatMsg.MsgCynic/SyncLocationNotify",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgCynicServer).SyncLocationNotify(ctx, req.(*KeepAlive))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _MsgCynic_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "chatMsg.MsgCynic",
 	HandlerType: (*MsgCynicServer)(nil),
@@ -786,6 +826,10 @@ var _MsgCynic_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckAlive",
 			Handler:    _MsgCynic_CheckAlive_Handler,
+		},
+		{
+			MethodName: "SyncLocationNotify",
+			Handler:    _MsgCynic_SyncLocationNotify_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

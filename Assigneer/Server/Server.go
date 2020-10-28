@@ -5,6 +5,8 @@ import (
 	"github.com/dxyinme/LukaComm/Assigneer"
 	"github.com/dxyinme/LukaComm/util/CoHash"
 	"github.com/golang/glog"
+	CynicUClient "github.com/dxyinme/LukaComm/CynicU/Client"
+	"time"
 )
 
 type Server struct {
@@ -35,6 +37,7 @@ func (s *Server) RemoveKeeper(ctx context.Context, in *Assigneer.RemoveKeeperReq
 		glog.Info(err)
 	}
 	delete(s.hosts, in.KeeperID)
+	s.syncLocationNotify()
 	return &Assigneer.AssignAck{
 		AckMessage: "",
 	},nil
@@ -43,8 +46,27 @@ func (s *Server) RemoveKeeper(ctx context.Context, in *Assigneer.RemoveKeeperReq
 func (s *Server) AddKeeper(ctx context.Context,in *Assigneer.AddKeeperReq) (*Assigneer.AssignAck, error) {
 	s.assignToStruct.AppendKeeper(in.KeeperID)
 	s.hosts[in.KeeperID] = in.Host
+	s.syncLocationNotify()
 	return &Assigneer.AssignAck{
 		AckMessage: "",
 	},nil
 }
 
+func (s *Server) syncLocationNotify() {
+	for _,v := range s.hosts {
+		go func() {
+			var err error
+			client := &CynicUClient.Client{}
+			err = client.Initial(v, time.Second * 3)
+			if err != nil {
+				glog.Error(err)
+				return
+			}
+			defer client.Close()
+			err = client.SyncLocationNotify()
+			if err != nil {
+				glog.Error(err)
+			}
+		}()
+	}
+}

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/dxyinme/LukaComm/chatMsg"
 	"github.com/dxyinme/LukaComm/util/MD5"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/grpc"
 	"time"
 )
@@ -84,6 +84,13 @@ func (c *Client) CheckAlive() bool {
 			CheckAlive: time.Now().String(),
 		})
 	return err == nil
+}
+
+func (c *Client) SyncLocationNotify() error {
+	_, err := c.client.SyncLocationNotify(context.Background(), &chatMsg.KeepAlive{
+		CheckAlive: "",
+	})
+	return err
 }
 
 func (c *Client) Initial(host string, timeout time.Duration) error {

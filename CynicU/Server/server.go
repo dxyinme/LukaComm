@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/dxyinme/LukaComm/chatMsg"
 	"github.com/dxyinme/LukaComm/util/MD5"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -17,12 +17,21 @@ type WorkerPool interface {
 	Pull(targetIs string) (*chatMsg.MsgPack,error)
 	// do not use PullAll but cluster is updating.
 	PullAll(targetIs string) (*chatMsg.MsgPack,error)
+	// SyncLocation
+	SyncLocationNotify()
 }
 
 type Server struct {
 	Lis net.Listener
 	name string
 	w WorkerPool
+}
+
+func (s *Server) SyncLocationNotify(context.Context, *chatMsg.KeepAlive) (*chatMsg.KeepAlive, error) {
+	s.w.SyncLocationNotify()
+	return &chatMsg.KeepAlive{
+		CheckAlive: "",
+	}, nil
 }
 
 func (s *Server) PullAll(ctx context.Context, in *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
@@ -85,4 +94,8 @@ func (uiw *UnImplWorkerPool) Pull(targetIs string) (*chatMsg.MsgPack,error) {
 func (uiw *UnImplWorkerPool) PullAll(targetIs string) (*chatMsg.MsgPack,error) {
 	log.Println("No Impl for WorkerPool - func PullAll")
 	return &chatMsg.MsgPack{},nil
+}
+
+func (uiw *UnImplWorkerPool) SyncLocationNotify() {
+	log.Println("No Impl for WorkerPool - func SyncLocationNotify")
 }
