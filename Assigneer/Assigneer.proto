@@ -6,7 +6,8 @@ message SyncLocationReq {
 }
 
 message SyncLocationRsp {
-    repeated uint32 keeperIDs = 1;
+    repeated uint32 keeperIDs   = 1;
+    repeated string hosts       = 2;
 }
 
 message RemoveKeeperReq {
@@ -15,6 +16,7 @@ message RemoveKeeperReq {
 
 message AddKeeperReq {
     uint32 keeperID = 1;
+    string host     = 2;
 }
 
 message AssignAck {
@@ -22,7 +24,7 @@ message AssignAck {
 }
 
 service Assigneer {
-    // sync the keeperIDs
+    // sync the keeperIDs and Hosts
     rpc SyncLocation (SyncLocationReq) returns (SyncLocationRsp);
     rpc RemoveKeeper (RemoveKeeperReq) returns (AssignAck);
     rpc AddKeeper (AddKeeperReq) returns (AssignAck);
