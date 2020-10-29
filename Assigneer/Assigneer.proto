@@ -23,9 +23,23 @@ message AssignAck {
     string ackMessage = 1;
 }
 
+message SwitchKeeperReq {
+    string uid          = 1;
+}
+
+message SwitchKeeperRsp {
+    uint32 keeperID     = 1;
+    string host         = 2;
+}
+
 service Assigneer {
     // sync the keeperIDs and Hosts
+    // prepare for keeper
     rpc SyncLocation (SyncLocationReq) returns (SyncLocationRsp);
     rpc RemoveKeeper (RemoveKeeperReq) returns (AssignAck);
     rpc AddKeeper (AddKeeperReq) returns (AssignAck);
+
+
+    // prepare for client
+    rpc SwitchKeeper (SwitchKeeperReq) returns (SwitchKeeperRsp);
 }

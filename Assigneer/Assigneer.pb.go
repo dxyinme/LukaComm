@@ -280,6 +280,108 @@ func (x *AssignAck) GetAckMessage() string {
 	return ""
 }
 
+type SwitchKeeperReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Uid string `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+}
+
+func (x *SwitchKeeperReq) Reset() {
+	*x = SwitchKeeperReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Assigneer_Assigneer_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SwitchKeeperReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SwitchKeeperReq) ProtoMessage() {}
+
+func (x *SwitchKeeperReq) ProtoReflect() protoreflect.Message {
+	mi := &file_Assigneer_Assigneer_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SwitchKeeperReq.ProtoReflect.Descriptor instead.
+func (*SwitchKeeperReq) Descriptor() ([]byte, []int) {
+	return file_Assigneer_Assigneer_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *SwitchKeeperReq) GetUid() string {
+	if x != nil {
+		return x.Uid
+	}
+	return ""
+}
+
+type SwitchKeeperRsp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	KeeperID uint32 `protobuf:"varint,1,opt,name=keeperID,proto3" json:"keeperID,omitempty"`
+	Host     string `protobuf:"bytes,2,opt,name=host,proto3" json:"host,omitempty"`
+}
+
+func (x *SwitchKeeperRsp) Reset() {
+	*x = SwitchKeeperRsp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Assigneer_Assigneer_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SwitchKeeperRsp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SwitchKeeperRsp) ProtoMessage() {}
+
+func (x *SwitchKeeperRsp) ProtoReflect() protoreflect.Message {
+	mi := &file_Assigneer_Assigneer_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SwitchKeeperRsp.ProtoReflect.Descriptor instead.
+func (*SwitchKeeperRsp) Descriptor() ([]byte, []int) {
+	return file_Assigneer_Assigneer_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *SwitchKeeperRsp) GetKeeperID() uint32 {
+	if x != nil {
+		return x.KeeperID
+	}
+	return 0
+}
+
+func (x *SwitchKeeperRsp) GetHost() string {
+	if x != nil {
+		return x.Host
+	}
+	return ""
+}
+
 var File_Assigneer_Assigneer_proto protoreflect.FileDescriptor
 
 var file_Assigneer_Assigneer_proto_rawDesc = []byte{
@@ -302,20 +404,31 @@ var file_Assigneer_Assigneer_proto_rawDesc = []byte{
 	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x68, 0x6f, 0x73, 0x74, 0x22, 0x2b, 0x0a, 0x09, 0x41,
 	0x73, 0x73, 0x69, 0x67, 0x6e, 0x41, 0x63, 0x6b, 0x12, 0x1e, 0x0a, 0x0a, 0x61, 0x63, 0x6b, 0x4d,
 	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x61, 0x63,
-	0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x32, 0xd1, 0x01, 0x0a, 0x09, 0x41, 0x73, 0x73,
-	0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x12, 0x46, 0x0a, 0x0c, 0x53, 0x79, 0x6e, 0x63, 0x4c, 0x6f,
-	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65,
-	0x65, 0x72, 0x2e, 0x53, 0x79, 0x6e, 0x63, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x65, 0x71, 0x1a, 0x1a, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x53,
-	0x79, 0x6e, 0x63, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x73, 0x70, 0x12, 0x40,
-	0x0a, 0x0c, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x12, 0x1a,
-	0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x52, 0x65, 0x6d, 0x6f, 0x76,
-	0x65, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x14, 0x2e, 0x41, 0x73, 0x73,
-	0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x41, 0x63, 0x6b,
-	0x12, 0x3a, 0x0a, 0x09, 0x41, 0x64, 0x64, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x12, 0x17, 0x2e,
-	0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x41, 0x64, 0x64, 0x4b, 0x65, 0x65,
-	0x70, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x14, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65,
-	0x65, 0x72, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x41, 0x63, 0x6b, 0x62, 0x06, 0x70, 0x72,
+	0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x23, 0x0a, 0x0f, 0x53, 0x77, 0x69, 0x74,
+	0x63, 0x68, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03, 0x75,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x69, 0x64, 0x22, 0x41, 0x0a,
+	0x0f, 0x53, 0x77, 0x69, 0x74, 0x63, 0x68, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x52, 0x73, 0x70,
+	0x12, 0x1a, 0x0a, 0x08, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0d, 0x52, 0x08, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x49, 0x44, 0x12, 0x12, 0x0a, 0x04,
+	0x68, 0x6f, 0x73, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x68, 0x6f, 0x73, 0x74,
+	0x32, 0x99, 0x02, 0x0a, 0x09, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x12, 0x46,
+	0x0a, 0x0c, 0x53, 0x79, 0x6e, 0x63, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a,
+	0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x53, 0x79, 0x6e, 0x63, 0x4c,
+	0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x1a, 0x1a, 0x2e, 0x41, 0x73, 0x73,
+	0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x53, 0x79, 0x6e, 0x63, 0x4c, 0x6f, 0x63, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x52, 0x73, 0x70, 0x12, 0x40, 0x0a, 0x0c, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65,
+	0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x12, 0x1a, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65,
+	0x65, 0x72, 0x2e, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x52,
+	0x65, 0x71, 0x1a, 0x14, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x41,
+	0x73, 0x73, 0x69, 0x67, 0x6e, 0x41, 0x63, 0x6b, 0x12, 0x3a, 0x0a, 0x09, 0x41, 0x64, 0x64, 0x4b,
+	0x65, 0x65, 0x70, 0x65, 0x72, 0x12, 0x17, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65,
+	0x72, 0x2e, 0x41, 0x64, 0x64, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x14,
+	0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67,
+	0x6e, 0x41, 0x63, 0x6b, 0x12, 0x46, 0x0a, 0x0c, 0x53, 0x77, 0x69, 0x74, 0x63, 0x68, 0x4b, 0x65,
+	0x65, 0x70, 0x65, 0x72, 0x12, 0x1a, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72,
+	0x2e, 0x53, 0x77, 0x69, 0x74, 0x63, 0x68, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x52, 0x65, 0x71,
+	0x1a, 0x1a, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x53, 0x77, 0x69,
+	0x74, 0x63, 0x68, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x52, 0x73, 0x70, 0x62, 0x06, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x33,
 }
 
@@ -331,23 +444,27 @@ func file_Assigneer_Assigneer_proto_rawDescGZIP() []byte {
 	return file_Assigneer_Assigneer_proto_rawDescData
 }
 
-var file_Assigneer_Assigneer_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_Assigneer_Assigneer_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_Assigneer_Assigneer_proto_goTypes = []interface{}{
 	(*SyncLocationReq)(nil), // 0: Assigneer.SyncLocationReq
 	(*SyncLocationRsp)(nil), // 1: Assigneer.SyncLocationRsp
 	(*RemoveKeeperReq)(nil), // 2: Assigneer.RemoveKeeperReq
 	(*AddKeeperReq)(nil),    // 3: Assigneer.AddKeeperReq
 	(*AssignAck)(nil),       // 4: Assigneer.AssignAck
+	(*SwitchKeeperReq)(nil), // 5: Assigneer.SwitchKeeperReq
+	(*SwitchKeeperRsp)(nil), // 6: Assigneer.SwitchKeeperRsp
 }
 var file_Assigneer_Assigneer_proto_depIdxs = []int32{
 	0, // 0: Assigneer.Assigneer.SyncLocation:input_type -> Assigneer.SyncLocationReq
 	2, // 1: Assigneer.Assigneer.RemoveKeeper:input_type -> Assigneer.RemoveKeeperReq
 	3, // 2: Assigneer.Assigneer.AddKeeper:input_type -> Assigneer.AddKeeperReq
-	1, // 3: Assigneer.Assigneer.SyncLocation:output_type -> Assigneer.SyncLocationRsp
-	4, // 4: Assigneer.Assigneer.RemoveKeeper:output_type -> Assigneer.AssignAck
-	4, // 5: Assigneer.Assigneer.AddKeeper:output_type -> Assigneer.AssignAck
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	5, // 3: Assigneer.Assigneer.SwitchKeeper:input_type -> Assigneer.SwitchKeeperReq
+	1, // 4: Assigneer.Assigneer.SyncLocation:output_type -> Assigneer.SyncLocationRsp
+	4, // 5: Assigneer.Assigneer.RemoveKeeper:output_type -> Assigneer.AssignAck
+	4, // 6: Assigneer.Assigneer.AddKeeper:output_type -> Assigneer.AssignAck
+	6, // 7: Assigneer.Assigneer.SwitchKeeper:output_type -> Assigneer.SwitchKeeperRsp
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -419,6 +536,30 @@ func file_Assigneer_Assigneer_proto_init() {
 				return nil
 			}
 		}
+		file_Assigneer_Assigneer_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SwitchKeeperReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Assigneer_Assigneer_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SwitchKeeperRsp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -426,7 +567,7 @@ func file_Assigneer_Assigneer_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_Assigneer_Assigneer_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -453,9 +594,12 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AssigneerClient interface {
 	// sync the keeperIDs and Hosts
+	// prepare for keeper
 	SyncLocation(ctx context.Context, in *SyncLocationReq, opts ...grpc.CallOption) (*SyncLocationRsp, error)
 	RemoveKeeper(ctx context.Context, in *RemoveKeeperReq, opts ...grpc.CallOption) (*AssignAck, error)
 	AddKeeper(ctx context.Context, in *AddKeeperReq, opts ...grpc.CallOption) (*AssignAck, error)
+	// prepare for client
+	SwitchKeeper(ctx context.Context, in *SwitchKeeperReq, opts ...grpc.CallOption) (*SwitchKeeperRsp, error)
 }
 
 type assigneerClient struct {
@@ -493,12 +637,24 @@ func (c *assigneerClient) AddKeeper(ctx context.Context, in *AddKeeperReq, opts 
 	return out, nil
 }
 
+func (c *assigneerClient) SwitchKeeper(ctx context.Context, in *SwitchKeeperReq, opts ...grpc.CallOption) (*SwitchKeeperRsp, error) {
+	out := new(SwitchKeeperRsp)
+	err := c.cc.Invoke(ctx, "/Assigneer.Assigneer/SwitchKeeper", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AssigneerServer is the server API for Assigneer service.
 type AssigneerServer interface {
 	// sync the keeperIDs and Hosts
+	// prepare for keeper
 	SyncLocation(context.Context, *SyncLocationReq) (*SyncLocationRsp, error)
 	RemoveKeeper(context.Context, *RemoveKeeperReq) (*AssignAck, error)
 	AddKeeper(context.Context, *AddKeeperReq) (*AssignAck, error)
+	// prepare for client
+	SwitchKeeper(context.Context, *SwitchKeeperReq) (*SwitchKeeperRsp, error)
 }
 
 // UnimplementedAssigneerServer can be embedded to have forward compatible implementations.
@@ -513,6 +669,9 @@ func (*UnimplementedAssigneerServer) RemoveKeeper(context.Context, *RemoveKeeper
 }
 func (*UnimplementedAssigneerServer) AddKeeper(context.Context, *AddKeeperReq) (*AssignAck, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddKeeper not implemented")
+}
+func (*UnimplementedAssigneerServer) SwitchKeeper(context.Context, *SwitchKeeperReq) (*SwitchKeeperRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SwitchKeeper not implemented")
 }
 
 func RegisterAssigneerServer(s *grpc.Server, srv AssigneerServer) {
@@ -573,6 +732,24 @@ func _Assigneer_AddKeeper_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Assigneer_SwitchKeeper_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SwitchKeeperReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssigneerServer).SwitchKeeper(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Assigneer.Assigneer/SwitchKeeper",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssigneerServer).SwitchKeeper(ctx, req.(*SwitchKeeperReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Assigneer_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "Assigneer.Assigneer",
 	HandlerType: (*AssigneerServer)(nil),
@@ -588,6 +765,10 @@ var _Assigneer_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddKeeper",
 			Handler:    _Assigneer_AddKeeper_Handler,
+		},
+		{
+			MethodName: "SwitchKeeper",
+			Handler:    _Assigneer_SwitchKeeper_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

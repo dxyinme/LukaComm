@@ -56,6 +56,14 @@ func (s *Server) AddKeeper(ctx context.Context,in *Assigneer.AddKeeperReq) (*Ass
 	},nil
 }
 
+func (s *Server) SwitchKeeper(ctx context.Context, in *Assigneer.SwitchKeeperReq) (*Assigneer.SwitchKeeperRsp, error) {
+	keeperID := s.assignToStruct.AssignTo(CoHash.UID{Uid: in.Uid}.GetHash())
+	return &Assigneer.SwitchKeeperRsp{
+		KeeperID: keeperID,
+		Host:     s.hosts[keeperID],
+	}, nil
+}
+
 func (s *Server) syncLocationNotify() {
 	for _,v := range s.hosts {
 		go func(host string) {
