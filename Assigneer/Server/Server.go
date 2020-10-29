@@ -57,7 +57,8 @@ func (s *Server) AddKeeper(ctx context.Context,in *Assigneer.AddKeeperReq) (*Ass
 }
 
 func (s *Server) SwitchKeeper(ctx context.Context, in *Assigneer.SwitchKeeperReq) (*Assigneer.SwitchKeeperRsp, error) {
-	keeperID := s.assignToStruct.AssignTo((&CoHash.UID{Uid: in.Uid}).GetHash())
+	nowUid := &CoHash.UID{Uid: in.Uid}
+	keeperID := s.assignToStruct.AssignTo(nowUid.GetHash())
 	return &Assigneer.SwitchKeeperRsp{
 		KeeperID: keeperID,
 		Host:     s.hosts[keeperID],
