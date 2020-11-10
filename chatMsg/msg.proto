@@ -27,6 +27,7 @@ message Msg {
     string sendTime = 6;
     // group chat usage.
     string groupName = 7;
+    bool spread = 8;
 }
 
 message MsgPack {
