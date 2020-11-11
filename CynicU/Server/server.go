@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/dxyinme/LukaComm/chatMsg"
 	"github.com/dxyinme/LukaComm/util/MD5"
-	"google.golang.org/protobuf/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/proto"
 	"log"
 	"net"
 )
@@ -19,12 +19,42 @@ type WorkerPool interface {
 	PullAll(targetIs string) (*chatMsg.MsgPack,error)
 	// SyncLocation
 	SyncLocationNotify()
+	// leave from group
+	LeaveGroup(req *chatMsg.GroupReq) error
+	// join into group
+	JoinGroup(req *chatMsg.GroupReq) error
 }
 
 type Server struct {
 	Lis net.Listener
 	name string
 	w WorkerPool
+}
+
+func (s *Server) JoinGroup(ctx context.Context,in *chatMsg.GroupReq) (*chatMsg.GroupRsp, error) {
+	err := s.w.JoinGroup(in)
+	if err != nil {
+		return &chatMsg.GroupRsp{
+			Msg: err.Error(),
+		}, nil
+	} else {
+		return &chatMsg.GroupRsp{
+			Msg: nil,
+		}, nil
+	}
+}
+
+func (s *Server) LeaveGroup(ctx context.Context,in *chatMsg.GroupReq) (*chatMsg.GroupRsp, error) {
+	err := s.w.LeaveGroup(in)
+	if err != nil {
+		return &chatMsg.GroupRsp{
+			Msg: err.Error(),
+		}, nil
+	} else {
+		return &chatMsg.GroupRsp{
+			Msg: nil,
+		}, nil
+	}
 }
 
 func (s *Server) SyncLocationNotify(context.Context, *chatMsg.KeepAlive) (*chatMsg.KeepAlive, error) {
@@ -82,6 +112,17 @@ func (s *Server) BindWorkerPool(pool WorkerPool) {
 
 type UnImplWorkerPool struct {
 }
+
+func (uiw *UnImplWorkerPool) LeaveGroup(req *chatMsg.GroupReq) error {
+	log.Println("No Impl for WorkerPool - func LeaveGroup")
+	return nil
+}
+
+func (uiw *UnImplWorkerPool) JoinGroup(req *chatMsg.GroupReq) error {
+	log.Println("No Impl for WorkerPool - func JoinGroup")
+	return nil
+}
+
 func (uiw *UnImplWorkerPool) SendTo(msg *chatMsg.Msg) {
 	log.Println("No Impl for WorkerPool - func SendTo")
 }

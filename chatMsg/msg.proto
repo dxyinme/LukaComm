@@ -42,6 +42,16 @@ message KeepAlive {
     string checkAlive = 1;
 }
 
+message GroupReq {
+    string uid          = 1;
+    string groupName    = 2;
+}
+
+message GroupRsp {
+    string msg          = 1;
+}
+
+// the server for all operators after user login successfully
 service MsgCynic {
     // Send Msg To Server
     rpc SendTo(Msg) returns (Ack);
@@ -53,4 +63,8 @@ service MsgCynic {
     rpc CheckAlive(KeepAlive) returns (KeepAlive);
     // notify keeper to sync cluster message
     rpc SyncLocationNotify(KeepAlive) returns (KeepAlive);
+    // join into a group
+    rpc JoinGroup(GroupReq) returns (GroupRsp);
+    // Leave from a group
+    rpc LeaveGroup(GroupReq) returns (GroupRsp);
 }
