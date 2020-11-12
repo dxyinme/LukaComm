@@ -45,6 +45,7 @@ message KeepAlive {
 message GroupReq {
     string uid          = 1;
     string groupName    = 2;
+    bool   isCopy       = 3;
 }
 
 message GroupRsp {
