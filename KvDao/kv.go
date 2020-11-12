@@ -7,8 +7,8 @@ const (
 )
 
 type KV interface {
-	Get(key string) ([]byte,error)
+	Get(key string) ([]byte, error)
 	Set(key string, value []byte) error
-	Exists(key string) (bool,error)
+	Exists(key string) (bool, error)
 	Delete(key string) error
 }

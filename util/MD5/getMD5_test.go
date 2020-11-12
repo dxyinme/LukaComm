@@ -15,7 +15,7 @@ func TestCalcMD5(t *testing.T) {
 		MsgType:        chatMsg.MsgType_Single,
 		MsgContentType: chatMsg.MsgContentType_Text,
 	}
-	testPB,err := proto.Marshal(test1)
+	testPB, err := proto.Marshal(test1)
 	if err != nil {
 		log.Println(err)
 	}

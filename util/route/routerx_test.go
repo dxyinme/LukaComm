@@ -14,7 +14,7 @@ func TestImpl_GetRoute(t *testing.T) {
 			Name:   "Usx",
 		},
 	})
-	for i := 0 ; i < 10 ; i ++ {
+	for i := 0; i < 10; i++ {
 		log.Println(r.GetRoute().Name)
 	}
 	log.Println("-------------------")
@@ -62,7 +62,7 @@ func TestImpl_GetRoute(t *testing.T) {
 			Name:   "Simon6",
 		},
 	})
-	for i := 0 ; i < 10 ; i ++ {
+	for i := 0; i < 10; i++ {
 		log.Println(r.GetRoute().Name)
 	}
 }

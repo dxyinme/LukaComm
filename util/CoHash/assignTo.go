@@ -6,9 +6,8 @@ import (
 	"sync"
 )
 
-
 type AssignToStruct struct {
-	muAssign sync.RWMutex
+	muAssign  sync.RWMutex
 	KeeperIDs []int
 }
 
@@ -29,7 +28,7 @@ func (a *AssignToStruct) RemoveKeeper(keeperId uint32) error {
 	a.muAssign.Lock()
 	defer a.muAssign.Unlock()
 	var wanted int = -1
-	for i := 0 ; i < len(a.KeeperIDs); i ++ {
+	for i := 0; i < len(a.KeeperIDs); i++ {
 		if a.KeeperIDs[i] == int(keeperId) {
 			wanted = i
 			break
@@ -38,7 +37,7 @@ func (a *AssignToStruct) RemoveKeeper(keeperId uint32) error {
 	if wanted == -1 {
 		return fmt.Errorf("Not Found In keeperIDs")
 	}
-	a.KeeperIDs = append(a.KeeperIDs[:wanted], a.KeeperIDs[wanted + 1:] ...)
+	a.KeeperIDs = append(a.KeeperIDs[:wanted], a.KeeperIDs[wanted+1:]...)
 	return nil
 }
 
@@ -47,12 +46,12 @@ func (a *AssignToStruct) AssignTo(MurMur3uid uint32) uint32 {
 	a.muAssign.RUnlock()
 	var (
 		Ans int = 0
-		L int = 1
-		R int = len(a.KeeperIDs)
+		L   int = 1
+		R   int = len(a.KeeperIDs)
 	)
-	for ;L <= R; {
+	for L <= R {
 		M := (L + R) / 2
-		if a.KeeperIDs[M - 1] <= int(MurMur3uid) {
+		if a.KeeperIDs[M-1] <= int(MurMur3uid) {
 			Ans = M
 			L = M + 1
 		} else {

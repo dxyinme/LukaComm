@@ -10,7 +10,7 @@ const beginUID = 10000
 
 var (
 	NowUID uint64 = beginUID
-	mu sync.Mutex
+	mu     sync.Mutex
 )
 
 type UID struct {
@@ -24,7 +24,7 @@ func (u *UID) GetHash() uint32 {
 func NewUID() *UID {
 	mu.Lock()
 	defer mu.Unlock()
-	NowUID ++
+	NowUID++
 	return &UID{
 		strconv.Itoa(int(NowUID)),
 	}

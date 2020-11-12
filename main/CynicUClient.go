@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func main()  {
+func main() {
 	var err error
 	var resp *chatMsg.MsgPack
 	client := &CynicUClient.Client{}

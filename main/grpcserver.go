@@ -9,14 +9,13 @@ import (
 )
 
 type grpcTestServer struct {
-
 }
 
-func (g *grpcTestServer) GrpcCall(ctx context.Context,in *pb.TestMsg) (*pb.TestMsgReply, error) {
-	return &pb.TestMsgReply{Ans:"echo" + in.Name}, nil
+func (g *grpcTestServer) GrpcCall(ctx context.Context, in *pb.TestMsg) (*pb.TestMsgReply, error) {
+	return &pb.TestMsgReply{Ans: "echo" + in.Name}, nil
 }
 
-func main(){
+func main() {
 	lis, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		log.Fatal(err)

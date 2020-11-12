@@ -19,9 +19,9 @@ func (s *Server) Login(ctx context.Context, req *verify.LoginReq) (*verify.Login
 		result = err.Error()
 	}
 	return &verify.LoginRsp{
-		MessCode: req.MessCode,
+		MessCode:    req.MessCode,
 		LoginResult: result,
-	},nil
+	}, nil
 }
 
 func (s *Server) SignUp(ctx context.Context, req *verify.SignUpReq) (*verify.SignUpRsp, error) {

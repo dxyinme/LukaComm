@@ -14,24 +14,54 @@ type WorkerPool interface {
 	// send message.
 	SendTo(msg *chatMsg.Msg)
 	// daily use pull user's message.
-	Pull(targetIs string) (*chatMsg.MsgPack,error)
+	Pull(targetIs string) (*chatMsg.MsgPack, error)
 	// do not use PullAll but cluster is updating.
-	PullAll(targetIs string) (*chatMsg.MsgPack,error)
+	PullAll(targetIs string) (*chatMsg.MsgPack, error)
 	// SyncLocation
 	SyncLocationNotify()
 	// leave from group
 	LeaveGroup(req *chatMsg.GroupReq) error
 	// join into group
 	JoinGroup(req *chatMsg.GroupReq) error
+	// create group , the uid is group master
+	CreateGroup(req *chatMsg.GroupReq) error
+	// delete group , the uid is group master
+	DeleteGroup(req *chatMsg.GroupReq) error
 }
 
 type Server struct {
-	Lis net.Listener
+	Lis  net.Listener
 	name string
-	w WorkerPool
+	w    WorkerPool
 }
 
-func (s *Server) JoinGroup(ctx context.Context,in *chatMsg.GroupReq) (*chatMsg.GroupRsp, error) {
+func (s *Server) CreateGroup(ctx context.Context, in *chatMsg.GroupReq) (*chatMsg.GroupRsp, error) {
+	err := s.w.CreateGroup(in)
+	if err != nil {
+		return &chatMsg.GroupRsp{
+			Msg: err.Error(),
+		}, nil
+	} else {
+		return &chatMsg.GroupRsp{
+			Msg: "",
+		}, nil
+	}
+}
+
+func (s *Server) DeleteGroup(ctx context.Context, in *chatMsg.GroupReq) (*chatMsg.GroupRsp, error) {
+	err := s.w.DeleteGroup(in)
+	if err != nil {
+		return &chatMsg.GroupRsp{
+			Msg: err.Error(),
+		}, nil
+	} else {
+		return &chatMsg.GroupRsp{
+			Msg: "",
+		}, nil
+	}
+}
+
+func (s *Server) JoinGroup(ctx context.Context, in *chatMsg.GroupReq) (*chatMsg.GroupRsp, error) {
 	err := s.w.JoinGroup(in)
 	if err != nil {
 		return &chatMsg.GroupRsp{
@@ -39,12 +69,12 @@ func (s *Server) JoinGroup(ctx context.Context,in *chatMsg.GroupReq) (*chatMsg.G
 		}, nil
 	} else {
 		return &chatMsg.GroupRsp{
-			Msg: nil,
+			Msg: "",
 		}, nil
 	}
 }
 
-func (s *Server) LeaveGroup(ctx context.Context,in *chatMsg.GroupReq) (*chatMsg.GroupRsp, error) {
+func (s *Server) LeaveGroup(ctx context.Context, in *chatMsg.GroupReq) (*chatMsg.GroupRsp, error) {
 	err := s.w.LeaveGroup(in)
 	if err != nil {
 		return &chatMsg.GroupRsp{
@@ -52,7 +82,7 @@ func (s *Server) LeaveGroup(ctx context.Context,in *chatMsg.GroupReq) (*chatMsg.
 		}, nil
 	} else {
 		return &chatMsg.GroupRsp{
-			Msg: nil,
+			Msg: "",
 		}, nil
 	}
 }
@@ -69,14 +99,14 @@ func (s *Server) PullAll(ctx context.Context, in *chatMsg.PullReq) (*chatMsg.Msg
 }
 
 func (s *Server) SendTo(ctx context.Context, in *chatMsg.Msg) (*chatMsg.Ack, error) {
-	defer func(){
+	defer func() {
 		go s.w.SendTo(in)
 	}()
 	pbIn, err := proto.Marshal(in)
 	if err != nil {
 		return nil, err
 	}
-	return &chatMsg.Ack{Md5: MD5.CalcMD5(pbIn)},nil
+	return &chatMsg.Ack{Md5: MD5.CalcMD5(pbIn)}, nil
 }
 
 func (s *Server) Pull(ctx context.Context, in *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
@@ -84,12 +114,12 @@ func (s *Server) Pull(ctx context.Context, in *chatMsg.PullReq) (*chatMsg.MsgPac
 }
 
 func (s *Server) CheckAlive(ctx context.Context, in *chatMsg.KeepAlive) (*chatMsg.KeepAlive, error) {
-	return in,nil;
+	return in, nil
 }
 
 func (s *Server) NewCynicUServer(addr string, name string) *grpc.Server {
 	var (
-		err error
+		err       error
 		retServer *grpc.Server
 	)
 	// to avoid Running Error
@@ -109,8 +139,17 @@ func (s *Server) BindWorkerPool(pool WorkerPool) {
 	s.w = pool
 }
 
-
 type UnImplWorkerPool struct {
+}
+
+func (uiw *UnImplWorkerPool) DeleteGroup(req *chatMsg.GroupReq) error {
+	log.Println("No Impl for WorkerPool - func DeleteGroup")
+	return nil
+}
+
+func (uiw *UnImplWorkerPool) CreateGroup(req *chatMsg.GroupReq) error {
+	log.Println("No Impl for WorkerPool - func CreateGroup")
+	return nil
 }
 
 func (uiw *UnImplWorkerPool) LeaveGroup(req *chatMsg.GroupReq) error {
@@ -127,14 +166,14 @@ func (uiw *UnImplWorkerPool) SendTo(msg *chatMsg.Msg) {
 	log.Println("No Impl for WorkerPool - func SendTo")
 }
 
-func (uiw *UnImplWorkerPool) Pull(targetIs string) (*chatMsg.MsgPack,error) {
+func (uiw *UnImplWorkerPool) Pull(targetIs string) (*chatMsg.MsgPack, error) {
 	log.Println("No Impl for WorkerPool - func Pull")
-	return &chatMsg.MsgPack{},nil
+	return &chatMsg.MsgPack{}, nil
 }
 
-func (uiw *UnImplWorkerPool) PullAll(targetIs string) (*chatMsg.MsgPack,error) {
+func (uiw *UnImplWorkerPool) PullAll(targetIs string) (*chatMsg.MsgPack, error) {
 	log.Println("No Impl for WorkerPool - func PullAll")
-	return &chatMsg.MsgPack{},nil
+	return &chatMsg.MsgPack{}, nil
 }
 
 func (uiw *UnImplWorkerPool) SyncLocationNotify() {

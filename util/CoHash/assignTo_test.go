@@ -5,11 +5,10 @@ import (
 	"testing"
 )
 
-
 func TestAssignTo(t *testing.T) {
 	var (
-		expected 	uint32
-		result		uint32
+		expected uint32
+		result   uint32
 	)
 	ats := AssignToStruct{
 		muAssign:  sync.RWMutex{},

@@ -7,7 +7,26 @@ import (
 )
 
 type wk struct {
+}
 
+func (w *wk) SyncLocationNotify() {
+	panic("implement me")
+}
+
+func (w *wk) LeaveGroup(req *chatMsg.GroupReq) error {
+	panic("implement me")
+}
+
+func (w *wk) JoinGroup(req *chatMsg.GroupReq) error {
+	panic("implement me")
+}
+
+func (w *wk) CreateGroup(req *chatMsg.GroupReq) error {
+	panic("implement me")
+}
+
+func (w *wk) DeleteGroup(req *chatMsg.GroupReq) error {
+	panic("implement me")
 }
 
 func (w *wk) SendTo(msg *chatMsg.Msg) {

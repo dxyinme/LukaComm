@@ -20,18 +20,18 @@ func httpCall(name string) {
 			log.Println(errRead)
 			return
 		}
-		if string(body) != "echo" + name {
+		if string(body) != "echo"+name {
 			log.Println(errRead)
 		}
 	}
 }
 
-func main()  {
+func main() {
 	var reqCount int = 10000
 	startTime := time.Now()
 	var wg sync.WaitGroup
 	wg.Add(reqCount)
-	for i := 0 ; i < reqCount; i ++ {
+	for i := 0; i < reqCount; i++ {
 		go func() {
 			httpCall("UUUUU")
 			wg.Done()

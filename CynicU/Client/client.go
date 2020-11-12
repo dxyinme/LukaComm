@@ -4,34 +4,35 @@ import (
 	"context"
 	"fmt"
 	"github.com/dxyinme/LukaComm/chatMsg"
+	"github.com/dxyinme/LukaComm/util/Const"
 	"github.com/dxyinme/LukaComm/util/MD5"
-	"google.golang.org/protobuf/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/proto"
 	"time"
 )
 
 type Client struct {
 	timeout time.Duration
-	conn 	*grpc.ClientConn
+	conn    *grpc.ClientConn
 	client  chatMsg.MsgCynicClient
-	host 	string
+	host    string
 }
 
 func (c *Client) SendTo(msg *chatMsg.Msg) error {
-	nowContext,cancel := context.WithTimeout(context.Background(), c.timeout)
+	nowContext, cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
 	var (
 		md5Msg string
-		pbMsg []byte
-		err error
-		resp *chatMsg.Ack
+		pbMsg  []byte
+		err    error
+		resp   *chatMsg.Ack
 	)
 	msg.SendTime = time.Now().String()
-	resp,err = c.client.SendTo(nowContext, msg)
+	resp, err = c.client.SendTo(nowContext, msg)
 	if err != nil {
 		return err
 	}
-	pbMsg,err = proto.Marshal(msg)
+	pbMsg, err = proto.Marshal(msg)
 	md5Msg = MD5.CalcMD5(pbMsg)
 	if resp.Md5 != md5Msg {
 		return fmt.Errorf("error ack")
@@ -39,8 +40,8 @@ func (c *Client) SendTo(msg *chatMsg.Msg) error {
 	return nil
 }
 
-func (c *Client) Pull(req *chatMsg.PullReq) (*chatMsg.MsgPack, error){
-	nowContext,cancel := context.WithTimeout(context.Background(), c.timeout)
+func (c *Client) Pull(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
+	nowContext, cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
 	resp, err := c.client.Pull(nowContext, req)
 	if err != nil {
@@ -59,7 +60,7 @@ func (c *Client) Pull(req *chatMsg.PullReq) (*chatMsg.MsgPack, error){
 }
 
 func (c *Client) PullAll(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
-	nowContext,cancel := context.WithTimeout(context.Background(), c.timeout)
+	nowContext, cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
 	resp, err := c.client.PullAll(nowContext, req)
 	if err != nil {
@@ -74,7 +75,7 @@ func (c *Client) PullAll(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
 		}
 		return resp, nil
 	}
-	return resp,nil
+	return resp, nil
 }
 
 func (c *Client) CheckAlive() bool {
@@ -84,6 +85,46 @@ func (c *Client) CheckAlive() bool {
 			CheckAlive: time.Now().String(),
 		})
 	return err == nil
+}
+
+func (c *Client) GroupOp(opNum, groupName, uid string) error {
+	var (
+		err error
+		rsp *chatMsg.GroupRsp
+	)
+	switch opNum {
+	case Const.CreateGroup:
+		rsp, err = c.client.CreateGroup(context.Background(), &chatMsg.GroupReq{
+			Uid:       uid,
+			GroupName: groupName,
+		})
+		break
+	case Const.DeleteGroup:
+		rsp, err = c.client.DeleteGroup(context.Background(), &chatMsg.GroupReq{
+			Uid:       uid,
+			GroupName: groupName,
+		})
+		break
+	case Const.JoinGroup:
+		rsp, err = c.client.JoinGroup(context.Background(), &chatMsg.GroupReq{
+			Uid:       uid,
+			GroupName: groupName,
+		})
+		break
+	case Const.LeaveGroup:
+		rsp, err = c.client.LeaveGroup(context.Background(), &chatMsg.GroupReq{
+			Uid:       uid,
+			GroupName: groupName,
+		})
+		break
+	}
+	if err != nil {
+		return err
+	}
+	if rsp.Msg != "" {
+		return fmt.Errorf("error rsp : %s", rsp.Msg)
+	}
+	return nil
 }
 
 func (c *Client) SyncLocationNotify() error {
@@ -109,7 +150,7 @@ func (c *Client) Initial(host string, timeout time.Duration) error {
 }
 
 func (c *Client) reconnect() error {
-	conn,err := grpc.Dial(c.host, grpc.WithInsecure())
+	conn, err := grpc.Dial(c.host, grpc.WithInsecure())
 	if err != nil {
 		return err
 	}

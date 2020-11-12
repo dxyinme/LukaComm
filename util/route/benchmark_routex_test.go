@@ -5,7 +5,7 @@ import (
 )
 
 func BenchmarkImpl_GetRoute(b *testing.B) {
-	r:= NewRouteX([]EndPoint{
+	r := NewRouteX([]EndPoint{
 		{
 			Ip:     "1.0.0.0",
 			Port:   22392,
@@ -49,9 +49,9 @@ func BenchmarkImpl_GetRoute(b *testing.B) {
 			Name:   "Simon6",
 		},
 	})
-	b.Run("100000" , func(b *testing.B) {
+	b.Run("100000", func(b *testing.B) {
 		etm := "Simon6"
-		for i := 0 ; i < 100000 ; i ++ {
+		for i := 0; i < 100000; i++ {
 			v := r.GetRoute().Name
 			if etm == v {
 

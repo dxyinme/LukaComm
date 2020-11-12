@@ -9,15 +9,14 @@ import (
 	"time"
 )
 
-
 type UserInfoKv struct {
-	PasswordDao *KvDao.RedisDao
-	LoginStatusDao *KvDao.RedisDao
+	PasswordDao             *KvDao.RedisDao
+	LoginStatusDao          *KvDao.RedisDao
 	UserLoginStatusLiveTime time.Duration
 }
 
 func (u *UserInfoKv) CheckUser(req *verify.LoginReq) error {
-	password,err := u.PasswordDao.Get(req.User.Uid)
+	password, err := u.PasswordDao.Get(req.User.Uid)
 	if err != nil {
 		return err
 	}

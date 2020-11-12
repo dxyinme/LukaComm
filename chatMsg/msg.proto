@@ -63,8 +63,15 @@ service MsgCynic {
     rpc CheckAlive(KeepAlive) returns (KeepAlive);
     // notify keeper to sync cluster message
     rpc SyncLocationNotify(KeepAlive) returns (KeepAlive);
+
+    // group operator.
+
     // join into a group
     rpc JoinGroup(GroupReq) returns (GroupRsp);
     // Leave from a group
     rpc LeaveGroup(GroupReq) returns (GroupRsp);
+    // Create a group
+    rpc CreateGroup(GroupReq) returns (GroupRsp);
+    // Delete a group
+    rpc DeleteGroup(GroupReq) returns (GroupRsp);
 }

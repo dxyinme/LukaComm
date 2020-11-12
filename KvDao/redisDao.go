@@ -7,32 +7,32 @@ import (
 )
 
 type RedisDao struct {
-	pool *redis.Pool
+	pool      *redis.Pool
 	redisHost string
 }
 
 func NewRedisKv(redisHost string) *RedisDao {
 	return &RedisDao{
-		pool:      &redis.Pool{
+		pool: &redis.Pool{
 			Dial: func() (conn redis.Conn, e error) {
 				c, err := redis.Dial("tcp", redisHost)
 				if err != nil {
 					return nil, err
-				} 
+				}
 				return c, nil
 			},
 			TestOnBorrow: func(c redis.Conn, t time.Time) error {
 				_, err := c.Do("PING")
 				return err
 			},
-			MaxIdle:         3,
-			IdleTimeout:     KvTimeOut,
+			MaxIdle:     3,
+			IdleTimeout: KvTimeOut,
 		},
 		redisHost: redisHost,
 	}
 }
 
-func (rDao *RedisDao) Get(key string) ([]byte,error) {
+func (rDao *RedisDao) Get(key string) ([]byte, error) {
 	conn := rDao.pool.Get()
 	defer conn.Close()
 	var (
@@ -50,7 +50,7 @@ func (rDao *RedisDao) Set(key string, value []byte) error {
 	return err
 }
 
-func (rDao *RedisDao) Exists(key string) (bool,error) {
+func (rDao *RedisDao) Exists(key string) (bool, error) {
 	conn := rDao.pool.Get()
 	defer conn.Close()
 	return redis.Bool(conn.Do("EXISTS", key))

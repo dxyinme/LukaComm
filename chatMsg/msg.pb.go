@@ -568,7 +568,7 @@ var file_chatMsg_msg_proto_rawDesc = []byte{
 	0x10, 0x03, 0x2a, 0x30, 0x0a, 0x07, 0x4d, 0x73, 0x67, 0x54, 0x79, 0x70, 0x65, 0x12, 0x0e, 0x0a,
 	0x0a, 0x4d, 0x73, 0x67, 0x54, 0x79, 0x70, 0x65, 0x45, 0x72, 0x72, 0x10, 0x00, 0x12, 0x0a, 0x0a,
 	0x06, 0x53, 0x69, 0x6e, 0x67, 0x6c, 0x65, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x47, 0x72, 0x6f,
-	0x75, 0x70, 0x10, 0x02, 0x32, 0xe6, 0x02, 0x0a, 0x08, 0x4d, 0x73, 0x67, 0x43, 0x79, 0x6e, 0x69,
+	0x75, 0x70, 0x10, 0x02, 0x32, 0xd0, 0x03, 0x0a, 0x08, 0x4d, 0x73, 0x67, 0x43, 0x79, 0x6e, 0x69,
 	0x63, 0x12, 0x24, 0x0a, 0x06, 0x53, 0x65, 0x6e, 0x64, 0x54, 0x6f, 0x12, 0x0c, 0x2e, 0x63, 0x68,
 	0x61, 0x74, 0x4d, 0x73, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x1a, 0x0c, 0x2e, 0x63, 0x68, 0x61, 0x74,
 	0x4d, 0x73, 0x67, 0x2e, 0x41, 0x63, 0x6b, 0x12, 0x2a, 0x0a, 0x04, 0x50, 0x75, 0x6c, 0x6c, 0x12,
@@ -590,8 +590,14 @@ var file_chatMsg_msg_proto_rawDesc = []byte{
 	0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x73, 0x70, 0x12, 0x32, 0x0a, 0x0a, 0x4c, 0x65, 0x61,
 	0x76, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x12, 0x11, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x4d, 0x73,
 	0x67, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x63, 0x68, 0x61,
-	0x74, 0x4d, 0x73, 0x67, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x73, 0x70, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x4d, 0x73, 0x67, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x73, 0x70, 0x12, 0x33, 0x0a,
+	0x0b, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x12, 0x11, 0x2e, 0x63,
+	0x68, 0x61, 0x74, 0x4d, 0x73, 0x67, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x1a,
+	0x11, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x4d, 0x73, 0x67, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52,
+	0x73, 0x70, 0x12, 0x33, 0x0a, 0x0b, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x12, 0x11, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x4d, 0x73, 0x67, 0x2e, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x4d, 0x73, 0x67, 0x2e, 0x47,
+	0x72, 0x6f, 0x75, 0x70, 0x52, 0x73, 0x70, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -630,15 +636,19 @@ var file_chatMsg_msg_proto_depIdxs = []int32{
 	6,  // 7: chatMsg.MsgCynic.SyncLocationNotify:input_type -> chatMsg.KeepAlive
 	7,  // 8: chatMsg.MsgCynic.JoinGroup:input_type -> chatMsg.GroupReq
 	7,  // 9: chatMsg.MsgCynic.LeaveGroup:input_type -> chatMsg.GroupReq
-	2,  // 10: chatMsg.MsgCynic.SendTo:output_type -> chatMsg.Ack
-	4,  // 11: chatMsg.MsgCynic.Pull:output_type -> chatMsg.MsgPack
-	4,  // 12: chatMsg.MsgCynic.PullAll:output_type -> chatMsg.MsgPack
-	6,  // 13: chatMsg.MsgCynic.CheckAlive:output_type -> chatMsg.KeepAlive
-	6,  // 14: chatMsg.MsgCynic.SyncLocationNotify:output_type -> chatMsg.KeepAlive
-	8,  // 15: chatMsg.MsgCynic.JoinGroup:output_type -> chatMsg.GroupRsp
-	8,  // 16: chatMsg.MsgCynic.LeaveGroup:output_type -> chatMsg.GroupRsp
-	10, // [10:17] is the sub-list for method output_type
-	3,  // [3:10] is the sub-list for method input_type
+	7,  // 10: chatMsg.MsgCynic.CreateGroup:input_type -> chatMsg.GroupReq
+	7,  // 11: chatMsg.MsgCynic.DeleteGroup:input_type -> chatMsg.GroupReq
+	2,  // 12: chatMsg.MsgCynic.SendTo:output_type -> chatMsg.Ack
+	4,  // 13: chatMsg.MsgCynic.Pull:output_type -> chatMsg.MsgPack
+	4,  // 14: chatMsg.MsgCynic.PullAll:output_type -> chatMsg.MsgPack
+	6,  // 15: chatMsg.MsgCynic.CheckAlive:output_type -> chatMsg.KeepAlive
+	6,  // 16: chatMsg.MsgCynic.SyncLocationNotify:output_type -> chatMsg.KeepAlive
+	8,  // 17: chatMsg.MsgCynic.JoinGroup:output_type -> chatMsg.GroupRsp
+	8,  // 18: chatMsg.MsgCynic.LeaveGroup:output_type -> chatMsg.GroupRsp
+	8,  // 19: chatMsg.MsgCynic.CreateGroup:output_type -> chatMsg.GroupRsp
+	8,  // 20: chatMsg.MsgCynic.DeleteGroup:output_type -> chatMsg.GroupRsp
+	12, // [12:21] is the sub-list for method output_type
+	3,  // [3:12] is the sub-list for method input_type
 	3,  // [3:3] is the sub-list for extension type_name
 	3,  // [3:3] is the sub-list for extension extendee
 	0,  // [0:3] is the sub-list for field type_name
@@ -782,6 +792,10 @@ type MsgCynicClient interface {
 	JoinGroup(ctx context.Context, in *GroupReq, opts ...grpc.CallOption) (*GroupRsp, error)
 	// Leave from a group
 	LeaveGroup(ctx context.Context, in *GroupReq, opts ...grpc.CallOption) (*GroupRsp, error)
+	// Create a group
+	CreateGroup(ctx context.Context, in *GroupReq, opts ...grpc.CallOption) (*GroupRsp, error)
+	// Delete a group
+	DeleteGroup(ctx context.Context, in *GroupReq, opts ...grpc.CallOption) (*GroupRsp, error)
 }
 
 type msgCynicClient struct {
@@ -855,6 +869,24 @@ func (c *msgCynicClient) LeaveGroup(ctx context.Context, in *GroupReq, opts ...g
 	return out, nil
 }
 
+func (c *msgCynicClient) CreateGroup(ctx context.Context, in *GroupReq, opts ...grpc.CallOption) (*GroupRsp, error) {
+	out := new(GroupRsp)
+	err := c.cc.Invoke(ctx, "/chatMsg.MsgCynic/CreateGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgCynicClient) DeleteGroup(ctx context.Context, in *GroupReq, opts ...grpc.CallOption) (*GroupRsp, error) {
+	out := new(GroupRsp)
+	err := c.cc.Invoke(ctx, "/chatMsg.MsgCynic/DeleteGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgCynicServer is the server API for MsgCynic service.
 type MsgCynicServer interface {
 	// Send Msg To Server
@@ -871,6 +903,10 @@ type MsgCynicServer interface {
 	JoinGroup(context.Context, *GroupReq) (*GroupRsp, error)
 	// Leave from a group
 	LeaveGroup(context.Context, *GroupReq) (*GroupRsp, error)
+	// Create a group
+	CreateGroup(context.Context, *GroupReq) (*GroupRsp, error)
+	// Delete a group
+	DeleteGroup(context.Context, *GroupReq) (*GroupRsp, error)
 }
 
 // UnimplementedMsgCynicServer can be embedded to have forward compatible implementations.
@@ -897,6 +933,12 @@ func (*UnimplementedMsgCynicServer) JoinGroup(context.Context, *GroupReq) (*Grou
 }
 func (*UnimplementedMsgCynicServer) LeaveGroup(context.Context, *GroupReq) (*GroupRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LeaveGroup not implemented")
+}
+func (*UnimplementedMsgCynicServer) CreateGroup(context.Context, *GroupReq) (*GroupRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGroup not implemented")
+}
+func (*UnimplementedMsgCynicServer) DeleteGroup(context.Context, *GroupReq) (*GroupRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteGroup not implemented")
 }
 
 func RegisterMsgCynicServer(s *grpc.Server, srv MsgCynicServer) {
@@ -1029,6 +1071,42 @@ func _MsgCynic_LeaveGroup_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MsgCynic_CreateGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgCynicServer).CreateGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chatMsg.MsgCynic/CreateGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgCynicServer).CreateGroup(ctx, req.(*GroupReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MsgCynic_DeleteGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgCynicServer).DeleteGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chatMsg.MsgCynic/DeleteGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgCynicServer).DeleteGroup(ctx, req.(*GroupReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _MsgCynic_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "chatMsg.MsgCynic",
 	HandlerType: (*MsgCynicServer)(nil),
@@ -1060,6 +1138,14 @@ var _MsgCynic_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LeaveGroup",
 			Handler:    _MsgCynic_LeaveGroup_Handler,
+		},
+		{
+			MethodName: "CreateGroup",
+			Handler:    _MsgCynic_CreateGroup_Handler,
+		},
+		{
+			MethodName: "DeleteGroup",
+			Handler:    _MsgCynic_DeleteGroup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

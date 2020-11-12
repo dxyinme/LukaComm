@@ -17,7 +17,6 @@ var (
 	HasMaster  bool
 )
 
-
 type YAML struct {
 	RegisterHost string `yaml:"RegisterHost"`
 	RegisterPort string `yaml:"RegisterPort"`
@@ -40,7 +39,3 @@ func ReadYAML(filename string) (*YAML, error) {
 	globalConf = *conf
 	return conf, nil
 }
-
-
-
-

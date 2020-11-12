@@ -7,7 +7,7 @@ import (
 
 func test(w http.ResponseWriter, r *http.Request) {
 	var (
-		err error
+		err  error
 		name string
 	)
 	err = r.ParseForm()
@@ -18,7 +18,7 @@ func test(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func main()  {
+func main() {
 	http.HandleFunc("/", test)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)

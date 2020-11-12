@@ -20,7 +20,7 @@ func main() {
 	}
 	defer conn.Close()
 	wg.Add(reqCount)
-	for i := 0 ; i < reqCount ; i ++ {
+	for i := 0; i < reqCount; i++ {
 		go func() {
 			func() {
 				// [use in reconnect time]
@@ -31,7 +31,7 @@ func main() {
 				//}
 				//defer conn.Close()
 				c := pb.NewTestServerClient(conn)
-				resp,err := c.GrpcCall(context.Background(), &pb.TestMsg{Name:"UUUUU"})
+				resp, err := c.GrpcCall(context.Background(), &pb.TestMsg{Name: "UUUUU"})
 				if err != nil {
 					log.Println(err)
 					return

@@ -9,3 +9,7 @@ GOBUILD   := $(GO) build
 GOTEST    := $(GO) test -p 4
 
 FILES     := $$(find . -name "*.go")
+
+fmt:
+	@echo "gofmt (simplify)"
+	@gofmt -s -l -w $(FILES) 2>&1 | $(FAIL_ON_STDOUT)
