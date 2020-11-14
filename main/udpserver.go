@@ -9,7 +9,7 @@ func main() {
 	var (
 		err error
 	)
-	addr, err := net.ResolveUDPAddr("udp", "127.0.0.1:8080")
+	addr, err := net.ResolveUDPAddr("udp", ":8080")
 	if err != nil {
 		log.Fatal(err)
 	}

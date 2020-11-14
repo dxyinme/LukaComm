@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"log"
 	"net"
 	"sync"
@@ -9,12 +10,14 @@ import (
 
 func main() {
 	startTime := time.Now()
-	var reqCount int = 10000
+	var reqCount int = 500
 	var wg sync.WaitGroup
 	wg.Add(reqCount)
+	var timeoutCnt = 0
+
 	for i := 0; i < reqCount; i++ {
 		go func(name string) {
-			conn, err := net.Dial("udp", "127.0.0.1:8080")
+			conn, err := net.Dial("udp", "175.24.105.131:8080")
 			if err != nil {
 				log.Println(err)
 				return
@@ -26,9 +29,23 @@ func main() {
 				return
 			}
 			resp := make([]byte, 8192)
-			_, err = conn.Read(resp)
+			err = func(b []byte) error {
+				ch := make(chan bool ,1)
+				go func() {
+					_, err = conn.Read(b)
+					close(ch)
+				}()
+				select {
+				case <-ch:
+					return nil
+				case <-time.After(20 * time.Second):
+					return errors.New("timeout")
+				}
+			}(resp)
 			if err != nil {
 				log.Println(err)
+				wg.Done()
+				timeoutCnt ++
 				return
 			}
 			Len := 0
@@ -46,5 +63,6 @@ func main() {
 		}("UUUUU")
 	}
 	wg.Wait()
-	log.Printf("use time : %v ms", time.Now().Sub(startTime).Milliseconds())
+	log.Printf("use time : %v ms in %v requests, timeoutCnt %v",
+		time.Now().Sub(startTime).Milliseconds(), reqCount, timeoutCnt)
 }
