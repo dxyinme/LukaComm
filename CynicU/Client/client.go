@@ -63,35 +63,23 @@ func (c *Client) CheckAlive() bool {
 	return err == nil
 }
 
-func (c *Client) GroupOp(opNum, groupName, uid string) error {
+func (c *Client) GroupOp(opNum string, req *chatMsg.GroupReq) error {
 	var (
 		err error
 		rsp *chatMsg.GroupRsp
 	)
 	switch opNum {
 	case Const.CreateGroup:
-		rsp, err = c.client.CreateGroup(context.Background(), &chatMsg.GroupReq{
-			Uid:       uid,
-			GroupName: groupName,
-		})
+		rsp, err = c.client.CreateGroup(context.Background(), req)
 		break
 	case Const.DeleteGroup:
-		rsp, err = c.client.DeleteGroup(context.Background(), &chatMsg.GroupReq{
-			Uid:       uid,
-			GroupName: groupName,
-		})
+		rsp, err = c.client.DeleteGroup(context.Background(), req)
 		break
 	case Const.JoinGroup:
-		rsp, err = c.client.JoinGroup(context.Background(), &chatMsg.GroupReq{
-			Uid:       uid,
-			GroupName: groupName,
-		})
+		rsp, err = c.client.JoinGroup(context.Background(), req)
 		break
 	case Const.LeaveGroup:
-		rsp, err = c.client.LeaveGroup(context.Background(), &chatMsg.GroupReq{
-			Uid:       uid,
-			GroupName: groupName,
-		})
+		rsp, err = c.client.LeaveGroup(context.Background(), req)
 		break
 	}
 	if err != nil {

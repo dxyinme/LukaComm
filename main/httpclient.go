@@ -9,7 +9,7 @@ import (
 )
 
 func httpCall(name string) {
-	resp, err := http.Get("http://localhost:8080/?name=" + name)
+	resp, err := http.Get("http://175.24.105.131:8080/?name=" + name)
 	defer resp.Body.Close()
 	if err != nil {
 		log.Println(err)
@@ -23,6 +23,7 @@ func httpCall(name string) {
 		if string(body) != "echo"+name {
 			log.Println(errRead)
 		}
+		log.Println("OK")
 	}
 }
 
