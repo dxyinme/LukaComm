@@ -44,38 +44,14 @@ func (c *Client) Pull(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
 	nowContext, cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
 	resp, err := c.client.Pull(nowContext, req)
-	if err != nil {
-		// reconnect in RPC FAIL time
-		err = c.reconnect()
-		if err != nil {
-			return nil, err
-		}
-		resp, err = c.client.Pull(nowContext, req)
-		if err != nil {
-			return nil, err
-		}
-		return resp, nil
-	}
-	return resp, nil
+	return resp, err
 }
 
 func (c *Client) PullAll(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
 	nowContext, cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
 	resp, err := c.client.PullAll(nowContext, req)
-	if err != nil {
-		// reconnect in RPC FAIL time
-		err = c.reconnect()
-		if err != nil {
-			return nil, err
-		}
-		resp, err = c.client.PullAll(nowContext, req)
-		if err != nil {
-			return nil, err
-		}
-		return resp, nil
-	}
-	return resp, nil
+	return resp, err
 }
 
 func (c *Client) CheckAlive() bool {
