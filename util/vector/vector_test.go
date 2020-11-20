@@ -21,7 +21,9 @@ func TestImpl_PushBack(t *testing.T) {
 		o.PushBack(i)
 	}
 	for i := 0; i < 20; i++ {
-		log.Println(o.Get(i))
+		if o.Get(i).(int) != i {
+			t.Errorf("error in %d", i)
+		}
 	}
 }
 

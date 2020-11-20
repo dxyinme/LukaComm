@@ -12,7 +12,7 @@ func (i *Impl) New(size int) {
 		size = 10
 	}
 	i.tmpSlice = make([]interface{}, size)
-	i.l = size/2 + 1
+	i.l = size / 2 + 1
 	i.r = size / 2
 }
 
@@ -45,7 +45,11 @@ func (i *Impl) Size() int {
 
 func (i *Impl) PushBack(item interface{}) {
 	i.r++
-	i.tmpSlice = append(i.tmpSlice, item)
+	if i.r >= len(i.tmpSlice) {
+		i.tmpSlice = append(i.tmpSlice, item)
+	} else {
+		i.tmpSlice[i.r] = item
+	}
 }
 
 func (i *Impl) PopBack() interface{} {
