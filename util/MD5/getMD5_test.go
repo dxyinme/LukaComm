@@ -2,7 +2,7 @@ package MD5
 
 import (
 	"github.com/dxyinme/LukaComm/chatMsg"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 	"log"
 	"testing"
 )
@@ -21,4 +21,13 @@ func TestCalcMD5(t *testing.T) {
 	}
 	md5 := CalcMD5(testPB)
 	log.Println(md5)
+
+	t1 := make([]byte, 13)
+	t2 := make([]byte, 25)
+	nowt := []byte("wer  owr")
+	copy(t1,nowt)
+	copy(t2,nowt)
+	if CalcMD5(t1) == CalcMD5(t2) {
+		t.Errorf("%v == %v", t1, t2)
+	}
 }

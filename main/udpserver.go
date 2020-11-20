@@ -21,16 +21,16 @@ func main() {
 	for {
 		message := make([]byte, 8192)
 		_, rAddr, err := conn.ReadFromUDP(message)
-		go func() {
+		go func(msg []byte) {
 			if err != nil {
 				log.Println(err)
 				return
 			}
-			_, err := conn.WriteToUDP(append([]byte("echo"), message...), rAddr)
+			_, err := conn.WriteToUDP(append([]byte("echo"), msg...), rAddr)
 			if err != nil {
 				log.Println(err)
 			}
-		}()
+		}(message)
 	}
 
 }

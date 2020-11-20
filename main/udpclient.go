@@ -17,7 +17,7 @@ func main() {
 
 	for i := 0; i < reqCount; i++ {
 		go func(name string) {
-			conn, err := net.Dial("udp", "175.24.105.131:8080")
+			conn, err := net.Dial("udp", "localhost:8080")
 			if err != nil {
 				log.Println(err)
 				return
@@ -30,7 +30,7 @@ func main() {
 			}
 			resp := make([]byte, 8192)
 			err = func(b []byte) error {
-				ch := make(chan bool ,1)
+				ch := make(chan bool, 1)
 				go func() {
 					_, err = conn.Read(b)
 					close(ch)
@@ -45,7 +45,7 @@ func main() {
 			if err != nil {
 				log.Println(err)
 				wg.Done()
-				timeoutCnt ++
+				timeoutCnt++
 				return
 			}
 			Len := 0

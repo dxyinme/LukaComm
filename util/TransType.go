@@ -1,6 +1,10 @@
 package util
 
-import "encoding/base64"
+import (
+	"bytes"
+	"encoding/base64"
+	"encoding/binary"
+)
 
 // BigEndian
 func ByteToInt16(b []byte) int16 {
@@ -40,4 +44,24 @@ func B64Encode(b []byte) []byte {
 
 func B64Decode(s string) ([]byte, error) {
 	return base64.StdEncoding.DecodeString(s)
+}
+
+// p is slice
+func ByteToUint64(p []byte) (uint64, error) {
+	buf := bytes.NewBuffer(p)
+	var (
+		ret uint64
+		err error
+	)
+	err = binary.Read(buf, binary.BigEndian, &ret)
+	if err != nil {
+		return 0, err
+	}
+	return ret, nil
+}
+
+func Uint64ToByte(v uint64) []byte {
+	buf := bytes.NewBuffer([]byte{})
+	_ = binary.Write(buf,binary.BigEndian,v)
+	return buf.Bytes()
 }
