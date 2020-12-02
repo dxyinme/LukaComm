@@ -28,6 +28,8 @@ message Msg {
     // group chat usage.
     string groupName = 7;
     bool spread = 8;
+    // msgId
+    string msgId = 30;
 }
 
 message MsgPack {

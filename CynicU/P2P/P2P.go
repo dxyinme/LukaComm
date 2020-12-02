@@ -64,7 +64,7 @@ func (p *P2P) run() {
 		var nowMsg chatMsg.Msg
 		err = proto.Unmarshal(msg, &nowMsg)
 		if err != nil {
-			log.Println(err, "  line 66 , P2P.go")
+			log.Println(err)
 		}
 		_,err = p.conn.WriteTo([]byte(MD5.CalcMD5(msg)), rAddr)
 		p.RecvMsg <- &nowMsg
