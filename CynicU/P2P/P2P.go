@@ -75,6 +75,10 @@ func (p *P2P) Send(msg *chatMsg.Msg, addr string) (err error) {
 	var finished = make(chan error, 1)
 	defer close(finished)
 	p.sendConn, err = net.Dial("udp", addr)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 	go func() {
 		var se error
 		b, se := proto.Marshal(msg)

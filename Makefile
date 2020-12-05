@@ -13,3 +13,7 @@ FILES     := $$(find . -name "*.go")
 fmt:
 	@echo "gofmt (simplify)"
 	@gofmt -s -l -w $(FILES) 2>&1 | $(FAIL_ON_STDOUT)
+
+p2p:
+	@echo "go p2p generate"
+	$(GOBUILD) -o bin/p2p_bin main/udpP2P.go
