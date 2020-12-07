@@ -9,8 +9,10 @@ import (
 	"strings"
 )
 
-var listenerAddr = flag.String("listenerAddr", ":8080", "listener address")
-
+var (
+	listenerAddr = flag.String("listenerAddr", ":8080", "listener address")
+	myUID = flag.String("myUID", "testUID", "UID")
+)
 func readLine() string {
 	var (
 		b []byte
@@ -43,7 +45,10 @@ func main() {
 		}
 	}()
 	for {
-		var s string
+		var (
+			s string
+			UID string
+			)
 		fmt.Print("$")
 		s = readLine()
 		s = strings.TrimSpace(s)
@@ -72,6 +77,17 @@ func main() {
 			chLen := len(ch)
 			for i := 0 ; i < chLen ; i ++ {
 				log.Println(string((<-ch).Content))
+			}
+		} else if s == "exit" {
+			return
+		} else if s[0] == 'G' {
+			_,_ = fmt.Sscanf(s, "G=%s", &UID)
+			addr := P2P.GetAddr(UID)
+			log.Println(addr)
+		} else if s[0] == 's' {
+			err = P2P.SyncAddr(*myUID, strings.Split(*listenerAddr, ":")[1])
+			if err != nil {
+				log.Println(err)
 			}
 		}
 	}
