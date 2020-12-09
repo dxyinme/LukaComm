@@ -62,8 +62,8 @@ func SetAddr(writer http.ResponseWriter, request *http.Request) {
 		log.Println(err)
 		return
 	}
-	Addr := strings.Split(request.Host, ":")[0]
-	Addr = Addr + ":" + request.Form.Get("Port")
+	Addr := strings.Split(request.RemoteAddr, ":")[0]
+	Addr = Addr + ":" + request.Form.Get( "Port")
 	mp[request.Form.Get("UID")] = Addr
 	log.Printf("UID=%s,Addr=%s", request.Form.Get("UID"), Addr)
 	_,err = writer.Write([]byte("ok"))
