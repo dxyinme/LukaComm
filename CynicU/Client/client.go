@@ -54,13 +54,13 @@ func (c *Client) PullAll(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
 	return resp, err
 }
 
-func (c *Client) CheckAlive() bool {
-	_, err := c.client.CheckAlive(
+func (c *Client) CheckAlive() (ret *chatMsg.KeepAlive,err error) {
+	ret, err = c.client.CheckAlive(
 		context.Background(),
 		&chatMsg.KeepAlive{
 			CheckAlive: time.Now().String(),
 		})
-	return err == nil
+	return
 }
 
 func (c *Client) GroupOp(opNum string, req *chatMsg.GroupReq) error {

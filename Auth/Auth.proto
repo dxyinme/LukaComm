@@ -1,0 +1,35 @@
+syntax = "proto3";
+package Auth;
+
+message UserPassword {
+    string uid = 1;
+    string password = 2;
+}
+
+message UserInfo {
+    UserPassword userPassword = 1;
+    string name = 2;
+}
+
+
+
+message LoginRsp {
+    string errorMsg = 1;
+}
+
+message SignUpRsp {
+    string errorMsg = 1;
+}
+
+message ChangeInfoRsp {
+    string errorMsg = 1;
+}
+
+service Auth {
+
+    rpc Login(UserPassword) returns (LoginRsp);
+
+    rpc SignUp(UserInfo) returns (SignUpRsp);
+
+    rpc ChangeInfo(UserInfo) returns (ChangeInfoRsp);
+}

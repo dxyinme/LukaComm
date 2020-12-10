@@ -42,6 +42,14 @@ message PullReq {
 
 message KeepAlive {
     string checkAlive = 1;
+
+
+    repeated string errors = 5;
+
+    int32 msgRecv = 6;
+    int32 msgSend = 7;
+    int32 msgNotLocal = 8;
+
 }
 
 message GroupReq {

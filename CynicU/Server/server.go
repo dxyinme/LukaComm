@@ -27,6 +27,8 @@ type WorkerPool interface {
 	CreateGroup(req *chatMsg.GroupReq) error
 	// delete group , the uid is group master
 	DeleteGroup(req *chatMsg.GroupReq) error
+	// checkAlive , get the information of keeper.
+	CheckAlive(req *chatMsg.KeepAlive) *chatMsg.KeepAlive
 }
 
 type Server struct {
@@ -140,6 +142,11 @@ func (s *Server) BindWorkerPool(pool WorkerPool) {
 }
 
 type UnImplWorkerPool struct {
+}
+
+func (uiw *UnImplWorkerPool) CheckAlive(req *chatMsg.KeepAlive) *chatMsg.KeepAlive {
+	log.Println("No Impl for WorkerPool - func CheckAlive")
+	return nil
 }
 
 func (uiw *UnImplWorkerPool) DeleteGroup(req *chatMsg.GroupReq) error {
