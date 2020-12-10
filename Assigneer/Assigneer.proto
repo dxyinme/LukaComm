@@ -32,6 +32,16 @@ message SwitchKeeperRsp {
     string host         = 2;
 }
 
+message ClusterReq {
+    uint32 operatorID = 1;
+    bytes reqInfo = 2;
+}
+
+message ClusterRsp {
+    uint32 operatorID = 1;
+    bytes rspInfo = 2;
+}
+
 service Assigneer {
     // sync the keeperIDs and Hosts
     // prepare for keeper
@@ -42,4 +52,7 @@ service Assigneer {
 
     // prepare for client
     rpc SwitchKeeper (SwitchKeeperReq) returns (SwitchKeeperRsp);
+
+    // maintain operator
+    rpc MaintainInfo (ClusterReq) returns (ClusterRsp);
 }

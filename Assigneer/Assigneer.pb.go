@@ -382,6 +382,116 @@ func (x *SwitchKeeperRsp) GetHost() string {
 	return ""
 }
 
+type ClusterReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OperatorID uint32 `protobuf:"varint,1,opt,name=operatorID,proto3" json:"operatorID,omitempty"`
+	ReqInfo    []byte `protobuf:"bytes,2,opt,name=reqInfo,proto3" json:"reqInfo,omitempty"`
+}
+
+func (x *ClusterReq) Reset() {
+	*x = ClusterReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Assigneer_Assigneer_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ClusterReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClusterReq) ProtoMessage() {}
+
+func (x *ClusterReq) ProtoReflect() protoreflect.Message {
+	mi := &file_Assigneer_Assigneer_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClusterReq.ProtoReflect.Descriptor instead.
+func (*ClusterReq) Descriptor() ([]byte, []int) {
+	return file_Assigneer_Assigneer_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *ClusterReq) GetOperatorID() uint32 {
+	if x != nil {
+		return x.OperatorID
+	}
+	return 0
+}
+
+func (x *ClusterReq) GetReqInfo() []byte {
+	if x != nil {
+		return x.ReqInfo
+	}
+	return nil
+}
+
+type ClusterRsp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OperatorID uint32 `protobuf:"varint,1,opt,name=operatorID,proto3" json:"operatorID,omitempty"`
+	RspInfo    []byte `protobuf:"bytes,2,opt,name=rspInfo,proto3" json:"rspInfo,omitempty"`
+}
+
+func (x *ClusterRsp) Reset() {
+	*x = ClusterRsp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Assigneer_Assigneer_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ClusterRsp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClusterRsp) ProtoMessage() {}
+
+func (x *ClusterRsp) ProtoReflect() protoreflect.Message {
+	mi := &file_Assigneer_Assigneer_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClusterRsp.ProtoReflect.Descriptor instead.
+func (*ClusterRsp) Descriptor() ([]byte, []int) {
+	return file_Assigneer_Assigneer_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *ClusterRsp) GetOperatorID() uint32 {
+	if x != nil {
+		return x.OperatorID
+	}
+	return 0
+}
+
+func (x *ClusterRsp) GetRspInfo() []byte {
+	if x != nil {
+		return x.RspInfo
+	}
+	return nil
+}
+
 var File_Assigneer_Assigneer_proto protoreflect.FileDescriptor
 
 var file_Assigneer_Assigneer_proto_rawDesc = []byte{
@@ -411,7 +521,16 @@ var file_Assigneer_Assigneer_proto_rawDesc = []byte{
 	0x12, 0x1a, 0x0a, 0x08, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x0d, 0x52, 0x08, 0x6b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x49, 0x44, 0x12, 0x12, 0x0a, 0x04,
 	0x68, 0x6f, 0x73, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x68, 0x6f, 0x73, 0x74,
-	0x32, 0x99, 0x02, 0x0a, 0x09, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x12, 0x46,
+	0x22, 0x46, 0x0a, 0x0a, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x12, 0x1e,
+	0x0a, 0x0a, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0d, 0x52, 0x0a, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x49, 0x44, 0x12, 0x18,
+	0x0a, 0x07, 0x72, 0x65, 0x71, 0x49, 0x6e, 0x66, 0x6f, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52,
+	0x07, 0x72, 0x65, 0x71, 0x49, 0x6e, 0x66, 0x6f, 0x22, 0x46, 0x0a, 0x0a, 0x43, 0x6c, 0x75, 0x73,
+	0x74, 0x65, 0x72, 0x52, 0x73, 0x70, 0x12, 0x1e, 0x0a, 0x0a, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74,
+	0x6f, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x0a, 0x6f, 0x70, 0x65, 0x72,
+	0x61, 0x74, 0x6f, 0x72, 0x49, 0x44, 0x12, 0x18, 0x0a, 0x07, 0x72, 0x73, 0x70, 0x49, 0x6e, 0x66,
+	0x6f, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x07, 0x72, 0x73, 0x70, 0x49, 0x6e, 0x66, 0x6f,
+	0x32, 0xd7, 0x02, 0x0a, 0x09, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x12, 0x46,
 	0x0a, 0x0c, 0x53, 0x79, 0x6e, 0x63, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a,
 	0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x53, 0x79, 0x6e, 0x63, 0x4c,
 	0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x1a, 0x1a, 0x2e, 0x41, 0x73, 0x73,
@@ -428,8 +547,12 @@ var file_Assigneer_Assigneer_proto_rawDesc = []byte{
 	0x65, 0x70, 0x65, 0x72, 0x12, 0x1a, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72,
 	0x2e, 0x53, 0x77, 0x69, 0x74, 0x63, 0x68, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x52, 0x65, 0x71,
 	0x1a, 0x1a, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x53, 0x77, 0x69,
-	0x74, 0x63, 0x68, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x52, 0x73, 0x70, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x63, 0x68, 0x4b, 0x65, 0x65, 0x70, 0x65, 0x72, 0x52, 0x73, 0x70, 0x12, 0x3c, 0x0a, 0x0c,
+	0x4d, 0x61, 0x69, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x15, 0x2e, 0x41,
+	0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72,
+	0x52, 0x65, 0x71, 0x1a, 0x15, 0x2e, 0x41, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x65, 0x72, 0x2e,
+	0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x52, 0x73, 0x70, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -444,7 +567,7 @@ func file_Assigneer_Assigneer_proto_rawDescGZIP() []byte {
 	return file_Assigneer_Assigneer_proto_rawDescData
 }
 
-var file_Assigneer_Assigneer_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_Assigneer_Assigneer_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_Assigneer_Assigneer_proto_goTypes = []interface{}{
 	(*SyncLocationReq)(nil), // 0: Assigneer.SyncLocationReq
 	(*SyncLocationRsp)(nil), // 1: Assigneer.SyncLocationRsp
@@ -453,18 +576,22 @@ var file_Assigneer_Assigneer_proto_goTypes = []interface{}{
 	(*AssignAck)(nil),       // 4: Assigneer.AssignAck
 	(*SwitchKeeperReq)(nil), // 5: Assigneer.SwitchKeeperReq
 	(*SwitchKeeperRsp)(nil), // 6: Assigneer.SwitchKeeperRsp
+	(*ClusterReq)(nil),      // 7: Assigneer.ClusterReq
+	(*ClusterRsp)(nil),      // 8: Assigneer.ClusterRsp
 }
 var file_Assigneer_Assigneer_proto_depIdxs = []int32{
 	0, // 0: Assigneer.Assigneer.SyncLocation:input_type -> Assigneer.SyncLocationReq
 	2, // 1: Assigneer.Assigneer.RemoveKeeper:input_type -> Assigneer.RemoveKeeperReq
 	3, // 2: Assigneer.Assigneer.AddKeeper:input_type -> Assigneer.AddKeeperReq
 	5, // 3: Assigneer.Assigneer.SwitchKeeper:input_type -> Assigneer.SwitchKeeperReq
-	1, // 4: Assigneer.Assigneer.SyncLocation:output_type -> Assigneer.SyncLocationRsp
-	4, // 5: Assigneer.Assigneer.RemoveKeeper:output_type -> Assigneer.AssignAck
-	4, // 6: Assigneer.Assigneer.AddKeeper:output_type -> Assigneer.AssignAck
-	6, // 7: Assigneer.Assigneer.SwitchKeeper:output_type -> Assigneer.SwitchKeeperRsp
-	4, // [4:8] is the sub-list for method output_type
-	0, // [0:4] is the sub-list for method input_type
+	7, // 4: Assigneer.Assigneer.MaintainInfo:input_type -> Assigneer.ClusterReq
+	1, // 5: Assigneer.Assigneer.SyncLocation:output_type -> Assigneer.SyncLocationRsp
+	4, // 6: Assigneer.Assigneer.RemoveKeeper:output_type -> Assigneer.AssignAck
+	4, // 7: Assigneer.Assigneer.AddKeeper:output_type -> Assigneer.AssignAck
+	6, // 8: Assigneer.Assigneer.SwitchKeeper:output_type -> Assigneer.SwitchKeeperRsp
+	8, // 9: Assigneer.Assigneer.MaintainInfo:output_type -> Assigneer.ClusterRsp
+	5, // [5:10] is the sub-list for method output_type
+	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -560,6 +687,30 @@ func file_Assigneer_Assigneer_proto_init() {
 				return nil
 			}
 		}
+		file_Assigneer_Assigneer_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ClusterReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Assigneer_Assigneer_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ClusterRsp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -567,7 +718,7 @@ func file_Assigneer_Assigneer_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_Assigneer_Assigneer_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -600,6 +751,8 @@ type AssigneerClient interface {
 	AddKeeper(ctx context.Context, in *AddKeeperReq, opts ...grpc.CallOption) (*AssignAck, error)
 	// prepare for client
 	SwitchKeeper(ctx context.Context, in *SwitchKeeperReq, opts ...grpc.CallOption) (*SwitchKeeperRsp, error)
+	// maintain operator
+	MaintainInfo(ctx context.Context, in *ClusterReq, opts ...grpc.CallOption) (*ClusterRsp, error)
 }
 
 type assigneerClient struct {
@@ -646,6 +799,15 @@ func (c *assigneerClient) SwitchKeeper(ctx context.Context, in *SwitchKeeperReq,
 	return out, nil
 }
 
+func (c *assigneerClient) MaintainInfo(ctx context.Context, in *ClusterReq, opts ...grpc.CallOption) (*ClusterRsp, error) {
+	out := new(ClusterRsp)
+	err := c.cc.Invoke(ctx, "/Assigneer.Assigneer/MaintainInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AssigneerServer is the server API for Assigneer service.
 type AssigneerServer interface {
 	// sync the keeperIDs and Hosts
@@ -655,6 +817,8 @@ type AssigneerServer interface {
 	AddKeeper(context.Context, *AddKeeperReq) (*AssignAck, error)
 	// prepare for client
 	SwitchKeeper(context.Context, *SwitchKeeperReq) (*SwitchKeeperRsp, error)
+	// maintain operator
+	MaintainInfo(context.Context, *ClusterReq) (*ClusterRsp, error)
 }
 
 // UnimplementedAssigneerServer can be embedded to have forward compatible implementations.
@@ -672,6 +836,9 @@ func (*UnimplementedAssigneerServer) AddKeeper(context.Context, *AddKeeperReq) (
 }
 func (*UnimplementedAssigneerServer) SwitchKeeper(context.Context, *SwitchKeeperReq) (*SwitchKeeperRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SwitchKeeper not implemented")
+}
+func (*UnimplementedAssigneerServer) MaintainInfo(context.Context, *ClusterReq) (*ClusterRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MaintainInfo not implemented")
 }
 
 func RegisterAssigneerServer(s *grpc.Server, srv AssigneerServer) {
@@ -750,6 +917,24 @@ func _Assigneer_SwitchKeeper_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Assigneer_MaintainInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClusterReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssigneerServer).MaintainInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Assigneer.Assigneer/MaintainInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssigneerServer).MaintainInfo(ctx, req.(*ClusterReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Assigneer_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "Assigneer.Assigneer",
 	HandlerType: (*AssigneerServer)(nil),
@@ -769,6 +954,10 @@ var _Assigneer_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SwitchKeeper",
 			Handler:    _Assigneer_SwitchKeeper_Handler,
+		},
+		{
+			MethodName: "MaintainInfo",
+			Handler:    _Assigneer_MaintainInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
