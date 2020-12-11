@@ -116,7 +116,8 @@ func (s *Server) Pull(ctx context.Context, in *chatMsg.PullReq) (*chatMsg.MsgPac
 }
 
 func (s *Server) CheckAlive(ctx context.Context, in *chatMsg.KeepAlive) (*chatMsg.KeepAlive, error) {
-	return in, nil
+	ret := s.w.CheckAlive(in)
+	return ret, nil
 }
 
 func (s *Server) NewCynicUServer(addr string, name string) *grpc.Server {
