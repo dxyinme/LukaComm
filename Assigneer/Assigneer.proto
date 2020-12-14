@@ -17,6 +17,7 @@ message RemoveKeeperReq {
 message AddKeeperReq {
     uint32 keeperID = 1;
     string host     = 2;
+    string pid      = 3;
 }
 
 message AssignAck {
