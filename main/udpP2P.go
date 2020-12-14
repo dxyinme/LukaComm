@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/dxyinme/LukaComm/CynicU/P2P"
+	"github.com/dxyinme/LukaComm/CynicU/rudp"
 	"github.com/dxyinme/LukaComm/chatMsg"
 	"log"
 	"strings"
@@ -30,7 +30,7 @@ func readLine() string {
 
 func main() {
 	flag.Parse()
-	p2p := P2P.NewP2P()
+	p2p := rudp.NewRUdp()
 	err := p2p.Listen(*listenerAddr)
 	if err != nil {
 		log.Fatal(err)
@@ -82,10 +82,10 @@ func main() {
 			return
 		} else if s[0] == 'G' {
 			_,_ = fmt.Sscanf(s, "G=%s", &UID)
-			addr := P2P.GetAddr(UID)
+			addr := rudp.GetAddr(UID)
 			log.Println(addr)
 		} else if s[0] == 's' {
-			err = P2P.SyncAddr(*myUID, strings.Split(*listenerAddr, ":")[1])
+			err = rudp.SyncAddr(*myUID, strings.Split(*listenerAddr, ":")[1])
 			if err != nil {
 				log.Println(err)
 			}

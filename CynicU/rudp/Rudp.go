@@ -1,4 +1,4 @@
-package P2P
+package rudp
 
 import (
 	"errors"
@@ -20,7 +20,7 @@ var (
 	NotCorrectAckErr = errors.New("error ack")
 )
 
-type P2P struct {
+type Rudp struct {
 
 	ServeAddr *net.UDPAddr
 
@@ -33,7 +33,7 @@ type P2P struct {
 	isListening bool
 }
 
-func (p *P2P) Listen(addr string) (err error) {
+func (p *Rudp) Listen(addr string) (err error) {
 	p.ServeAddr,err = net.ResolveUDPAddr("udp", addr)
 	if err != nil {
 		return err
@@ -48,7 +48,7 @@ func (p *P2P) Listen(addr string) (err error) {
 	return nil
 }
 
-func (p *P2P) run() {
+func (p *Rudp) run() {
 	var (
 		msg []byte
 		rAddr *net.UDPAddr
@@ -71,7 +71,7 @@ func (p *P2P) run() {
 	}
 }
 
-func (p *P2P) Send(msg *chatMsg.Msg, addr string) (err error) {
+func (p *Rudp) Send(msg *chatMsg.Msg, addr string) (err error) {
 	var finished = make(chan error, 1)
 	defer close(finished)
 	p.sendConn, err = net.Dial("udp", addr)
@@ -113,8 +113,8 @@ func (p *P2P) Send(msg *chatMsg.Msg, addr string) (err error) {
 	return err
 }
 
-func NewP2P() *P2P {
-	return &P2P{
+func NewRUdp() *Rudp {
+	return &Rudp{
 		ServeAddr:   nil,
 		RecvMsg:     make(chan *chatMsg.Msg, 10),
 		conn:        nil,

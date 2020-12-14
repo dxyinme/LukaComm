@@ -1,4 +1,4 @@
-package P2P
+package rudp
 
 import (
 	"flag"
