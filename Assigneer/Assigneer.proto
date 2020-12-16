@@ -43,6 +43,15 @@ message ClusterRsp {
     bytes rspInfo = 2;
 }
 
+message RegisterNodeReq {
+    string ip = 1;
+    string pwd = 2;
+}
+
+message RegisterNodeRsp {
+    string registerInfo = 1;
+}
+
 service Assigneer {
     // sync the keeperIDs and Hosts
     // prepare for keeper
@@ -55,5 +64,10 @@ service Assigneer {
     rpc SwitchKeeper (SwitchKeeperReq) returns (SwitchKeeperRsp);
 
     // maintain operator
+
+    // maintainInfo of each keeper.
     rpc MaintainInfo (ClusterReq) returns (ClusterRsp);
+
+    // registerNode to assigneerServer
+    rpc RegisterNode (RegisterNodeReq) returns (RegisterNodeRsp);
 }

@@ -63,6 +63,7 @@ func (c *Client) CheckAlive() (ret *chatMsg.KeepAlive,err error) {
 	return
 }
 
+// opNum operator is in LukaComm/util/Const
 func (c *Client) GroupOp(opNum string, req *chatMsg.GroupReq) error {
 	var (
 		err error
