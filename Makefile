@@ -14,10 +14,6 @@ fmt:
 	@echo "gofmt (simplify)"
 	@gofmt -s -l -w $(FILES) 2>&1 | $(FAIL_ON_STDOUT)
 
-p2p:
-	@echo "go p2p generate"
-	$(GOBUILD) -o bin/p2p_bin main/udpP2P.go
-
-p2pServer:
-	@echo "go p2pServer generate"
-	$(GOBUILD) -o bin/p2pServer_bin main/P2P-addr-server.go
+#RUdp:
+#	@echo "go p2p generate"
+#	$(GOBUILD) -o bin/p2p_bin main/udpP2P.go
