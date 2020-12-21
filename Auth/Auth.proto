@@ -6,12 +6,15 @@ message UserPassword {
     string password = 2;
 }
 
+message UserGroupInfo {
+    repeat string groupNames = 1;
+    string name = 2;
+}
+
 message UserInfo {
     UserPassword userPassword = 1;
     string name = 2;
 }
-
-
 
 message LoginRsp {
     string errorMsg = 1;

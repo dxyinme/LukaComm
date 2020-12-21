@@ -6,7 +6,7 @@ import (
 )
 
 func TestNewRedisKv(t *testing.T) {
-	testPool := NewRedisKv("175.24.105.131:6379")
+	testPool := NewRedisKv("yourHost")
 	defer testPool.Close()
 	err := testPool.Set("test", []byte("just test"))
 	if err != nil {

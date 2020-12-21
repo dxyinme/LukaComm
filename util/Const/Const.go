@@ -8,4 +8,8 @@ const (
 	CreateGroup = "CREATE GROUP"
 	DeleteGroup = "DELETE GROUP"
 	LeaveGroup  = "LEAVE GROUP"
+
+	// UseCall
+	// for get UserGroupInfo
+	GetGroupInfo = "GetGroupInfo"
 )
