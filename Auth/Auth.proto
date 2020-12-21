@@ -7,7 +7,7 @@ message UserPassword {
 }
 
 message UserGroupInfo {
-    repeat string groupNames = 1;
+    repeated string groupNames = 1;
     string name = 2;
 }
 
