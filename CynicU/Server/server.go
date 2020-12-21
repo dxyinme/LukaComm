@@ -29,12 +29,19 @@ type WorkerPool interface {
 	DeleteGroup(req *chatMsg.GroupReq) error
 	// checkAlive , get the information of keeper.
 	CheckAlive(req *chatMsg.KeepAlive) *chatMsg.KeepAlive
+	// usage Call
+	UseCall(channel *chatMsg.UseChannel) (*chatMsg.UseChannel, error)
 }
 
 type Server struct {
 	Lis  net.Listener
 	name string
 	w    WorkerPool
+}
+
+func (s *Server) UseCall(ctx context.Context,in *chatMsg.UseChannel) (ret *chatMsg.UseChannel,err error) {
+	ret, err = s.w.UseCall(in)
+	return
 }
 
 func (s *Server) CreateGroup(ctx context.Context, in *chatMsg.GroupReq) (*chatMsg.GroupRsp, error) {
@@ -143,6 +150,11 @@ func (s *Server) BindWorkerPool(pool WorkerPool) {
 }
 
 type UnImplWorkerPool struct {
+}
+
+func (uiw *UnImplWorkerPool) UseCall(channel *chatMsg.UseChannel) (*chatMsg.UseChannel, error) {
+	log.Println("No Impl for WorkerPool - func UseCall")
+
 }
 
 func (uiw *UnImplWorkerPool) CheckAlive(req *chatMsg.KeepAlive) *chatMsg.KeepAlive {

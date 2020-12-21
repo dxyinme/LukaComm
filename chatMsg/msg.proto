@@ -62,6 +62,12 @@ message GroupRsp {
     string msg          = 1;
 }
 
+
+message UseChannel {
+    bytes content       = 1;
+    string contentType  = 2;
+}
+
 // the server for all operators after user login successfully
 service MsgCynic {
     // Send Msg To Server
@@ -85,4 +91,7 @@ service MsgCynic {
     rpc CreateGroup(GroupReq) returns (GroupRsp);
     // Delete a group
     rpc DeleteGroup(GroupReq) returns (GroupRsp);
+
+    // other usage call
+    rpc UseCall(UseChannel) returns (UseChannel);
 }

@@ -99,6 +99,11 @@ func (c *Client) SyncLocationNotify() error {
 	return err
 }
 
+func (c *Client) UseCall(in *chatMsg.UseChannel) (ret *chatMsg.UseChannel, err error) {
+	ret, err = c.client.UseCall(context.Background(), in)
+	return
+}
+
 func (c *Client) Initial(host string, timeout time.Duration) error {
 	var (
 		err error
