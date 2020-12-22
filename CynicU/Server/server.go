@@ -154,7 +154,7 @@ type UnImplWorkerPool struct {
 
 func (uiw *UnImplWorkerPool) UseCall(channel *chatMsg.UseChannel) (*chatMsg.UseChannel, error) {
 	log.Println("No Impl for WorkerPool - func UseCall")
-
+	return nil,nil
 }
 
 func (uiw *UnImplWorkerPool) CheckAlive(req *chatMsg.KeepAlive) *chatMsg.KeepAlive {
