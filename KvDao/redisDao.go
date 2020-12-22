@@ -1,6 +1,7 @@
 package KvDao
 
 import (
+	"errors"
 	"fmt"
 	"github.com/gomodule/redigo/redis"
 	"time"
@@ -32,18 +33,18 @@ func NewRedisKv(redisHost string) *RedisDao {
 	}
 }
 
-func (rDao *RedisDao) Get(key string) ([]byte, error) {
+func (rDao *RedisDao) Get(key string) (interface{}, error) {
 	conn := rDao.pool.Get()
 	defer conn.Close()
 	var (
-		res []byte
+		res interface{}
 		err error
 	)
-	res, err = redis.Bytes(conn.Do("GET", key))
+	res, err = conn.Do("GET", key)
 	return res, err
 }
 
-func (rDao *RedisDao) Set(key string, value []byte) error {
+func (rDao *RedisDao) Set(key string, value interface{}) error {
 	conn := rDao.pool.Get()
 	defer conn.Close()
 	_, err := conn.Do("SET", key, value)
@@ -61,6 +62,41 @@ func (rDao *RedisDao) Delete(key string) error {
 	defer conn.Close()
 	_, err := conn.Do("DEL", key)
 	return err
+}
+
+// Set operation
+
+// Insert
+func (rDao *RedisDao) Insert(setName string, item interface{}) error {
+	conn := rDao.pool.Get()
+	defer conn.Close()
+	reply, err := conn.Do("SADD", setName, item)
+	if reply == 0 {
+		err = errors.New("item has existed")
+	}
+	return err
+}
+
+func (rDao *RedisDao) Remove(setName string, item interface{}) error {
+	conn := rDao.pool.Get()
+	defer conn.Close()
+	reply, err := conn.Do("SREM", setName, item)
+	if reply == 0 {
+		err = errors.New("item has not existed")
+	}
+	return err
+}
+
+func (rDao *RedisDao) GetMembers(setName string) (ret []interface{}, err error) {
+	conn := rDao.pool.Get()
+	defer conn.Close()
+	var reply interface{}
+	reply, err = conn.Do("SMEMBERS", setName)
+	if reply == nil {
+		err = errors.New("setName has not existed")
+	}
+	ret = reply.([]interface{})
+	return
 }
 
 func (rDao *RedisDao) Close() error {
