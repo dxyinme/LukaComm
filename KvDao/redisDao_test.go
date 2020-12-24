@@ -76,9 +76,15 @@ func TestRedisDao_Keys(t *testing.T) {
 	}
 	var (
 		keys []string
-		values []interface{}
+		valuesInterface []interface{}
+		values []string
 	)
-	keys, values, err = testPool.Keys()
+	keys, valuesInterface, err = testPool.Keys()
+	if err != nil {
+		t.Fatal(err)
+	}
+	// usage !! mention
+	values, err = redis.Strings(valuesInterface, err)
 	if err != nil {
 		t.Fatal(err)
 	}
