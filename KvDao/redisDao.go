@@ -33,6 +33,23 @@ func NewRedisKv(redisHost string) *RedisDao {
 	}
 }
 
+func (rDao *RedisDao) Keys() (keys []string, values []interface{}, err error) {
+	conn := rDao.pool.Get()
+	defer conn.Close()
+	keys, err = redis.Strings(conn.Do("KEYS", "*"))
+	if err != nil {
+		return nil,nil, err
+	}
+	for _,v := range keys {
+		now , err := redis.String(conn.Do("GET", v))
+		if err != nil {
+			return nil,nil, err
+		}
+		values = append(values, now)
+	}
+	return
+}
+
 func (rDao *RedisDao) Get(key string) (interface{}, error) {
 	conn := rDao.pool.Get()
 	defer conn.Close()

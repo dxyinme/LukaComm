@@ -52,3 +52,37 @@ func TestNewRedisKv(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+
+func TestRedisDao_Keys(t *testing.T) {
+	testPool := NewRedisKv("127.0.0.1:6379")
+	defer testPool.Close()
+	var err error
+	err = testPool.Set("test", "just test")
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = testPool.Set("test1", "just test1")
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = testPool.Set("test2", "just test2")
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = testPool.Set("test3", "just test3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var (
+		keys []string
+		values []interface{}
+	)
+	keys, values, err = testPool.Keys()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for i := 0 ; i < len(keys); i ++ {
+		log.Println(keys[i], values[i])
+	}
+}
