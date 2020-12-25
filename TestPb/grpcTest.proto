@@ -9,6 +9,19 @@ message TestMsgReply {
     string ans = 1;
 }
 
+message BenchBody {
+    string t1 = 1;
+    string t2 = 2;
+    bytes t3 = 3;
+    int32 t4 = 4;
+
+    int64 t5 = 10;
+    repeated int32 arr1 = 11;
+    repeated string arr2 = 12;
+
+    repeated TestMsgReply replyArr = 13;
+}
+
 service TestServer {
     rpc grpcCall(TestMsg) returns (TestMsgReply);
 }

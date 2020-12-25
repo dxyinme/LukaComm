@@ -12,3 +12,4 @@ script:
   - go test -v ./util/MD5
   - go test -v ./util/CoHash
   - go test -v ./util/vector
+  - go test -v ./TestPb
