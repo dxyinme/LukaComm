@@ -6,6 +6,7 @@ import (
 	"github.com/dxyinme/LukaComm/util/CoHash"
 	"github.com/dxyinme/LukaComm/util/MD5"
 	"github.com/dxyinme/LukaComm/verify"
+	"github.com/gomodule/redigo/redis"
 	"time"
 )
 
@@ -16,11 +17,11 @@ type UserInfoKv struct {
 }
 
 func (u *UserInfoKv) CheckUser(req *verify.LoginReq) error {
-	password, err := u.PasswordDao.Get(req.User.Uid)
+	password, err := redis.String(u.PasswordDao.Get(req.User.Uid))
 	if err != nil {
 		return err
 	}
-	if string(password) != MD5.CalcMD5([]byte(req.User.Password)) {
+	if password != MD5.CalcMD5([]byte(req.User.Password)) {
 		return fmt.Errorf("Wrong Password")
 	}
 	err = u.LoginStatusDao.Set(req.User.Uid, []byte(req.MessCode))
@@ -28,8 +29,8 @@ func (u *UserInfoKv) CheckUser(req *verify.LoginReq) error {
 		go func() {
 			select {
 			case <-time.After(u.UserLoginStatusLiveTime):
-				messCodePre, _ := u.LoginStatusDao.Get(req.User.Uid)
-				if string(messCodePre) == req.MessCode {
+				messCodePre, _ := redis.String(u.LoginStatusDao.Get(req.User.Uid))
+				if messCodePre == req.MessCode {
 					_ = u.LoginStatusDao.Delete(req.User.Uid)
 				}
 				// 如果登录状态中的messCode仍然是当前的

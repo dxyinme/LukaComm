@@ -10,7 +10,7 @@ import (
 
 func main() {
 	startTime := time.Now()
-	var reqCount int = 2500
+	var reqCount int = 10000
 	var wg sync.WaitGroup
 	wg.Add(reqCount)
 	var timeoutCnt = 0

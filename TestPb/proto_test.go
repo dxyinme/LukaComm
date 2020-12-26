@@ -1,7 +1,7 @@
 package TestPb
 
 import (
-	"encoding/json"
+	"github.com/dxyinme/LukaComm/util"
 	"google.golang.org/protobuf/proto"
 	"log"
 	"testing"
@@ -46,7 +46,7 @@ func BenchmarkBenchBody_jsonEncode(b *testing.B) {
 		resJson []byte
 	)
 
-	resJson, err = json.Marshal(t1)
+	resJson, err = util.IJson.Marshal(t1)
 
 	if err != nil {
 		b.Fatal(err)
