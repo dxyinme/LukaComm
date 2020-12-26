@@ -9,6 +9,14 @@ import (
 type wk struct {
 }
 
+func (w *wk) CheckAlive(req *chatMsg.KeepAlive) *chatMsg.KeepAlive {
+	panic("implement me")
+}
+
+func (w *wk) UseCall(channel *chatMsg.UseChannel) (*chatMsg.UseChannel, error) {
+	panic("implement me")
+}
+
 func (w *wk) SyncLocationNotify() {
 	panic("implement me")
 }
