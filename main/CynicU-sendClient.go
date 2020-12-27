@@ -20,7 +20,8 @@ func main() {
 		Spread:         false,
 		MsgId:          "",
 	}
-	reqCount := 10000
+	reqCount := 8000
+	timeoutCnt := 0
 	startTime := time.Now()
 	wg := sync.WaitGroup{}
 	wg.Add(reqCount)
@@ -33,13 +34,17 @@ func main() {
 			if err != nil {
 				log.Println(err)
 			}
+			if err == SendMsg.TimeoutErr {
+				timeoutCnt ++
+			}
+
 			wg.Done()
 		}(i)
 	}
 	wg.Wait()
 
-	log.Printf("use time : %v ms in %v requests",
-		time.Now().Sub(startTime).Milliseconds(), reqCount)
+	log.Printf("use time : %v ms in %v requests, %v timeout",
+		time.Now().Sub(startTime).Milliseconds(), reqCount, timeoutCnt)
 
 
 }
