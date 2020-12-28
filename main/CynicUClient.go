@@ -1,21 +1,27 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	CynicUClient "github.com/dxyinme/LukaComm/CynicU/Client"
 	"github.com/dxyinme/LukaComm/chatMsg"
 	"log"
+	"sync"
 	"time"
 )
 
+var (
+	isSleep = flag.Bool("isSleep",false,"wait after send")
+)
+
 func main() {
+	flag.Parse()
 	var err error
-	var resp *chatMsg.MsgPack
 	client := &CynicUClient.Client{}
 	err = client.Initial("localhost:8080", time.Second*3)
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer client.Close()
 
 	err = client.SendTo(&chatMsg.Msg{
 		From:           "example",
@@ -27,11 +33,9 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	resp, err = client.PullAll(&chatMsg.PullReq{From: "example2"})
-	if err != nil {
-		log.Fatalln(err)
-	}
-	for _, msg := range resp.MsgList {
-		fmt.Println(msg)
+	if *isSleep {
+		wg := sync.WaitGroup{}
+		wg.Add(1)
+		wg.Wait()
 	}
 }

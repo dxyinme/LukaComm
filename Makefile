@@ -14,6 +14,13 @@ fmt:
 	@echo "gofmt (simplify)"
 	@gofmt -s -l -w $(FILES) 2>&1 | $(FAIL_ON_STDOUT)
 
-#RUdp:
-#	@echo "go p2p generate"
-#	$(GOBUILD) -o bin/p2p_bin main/udpP2P.go
+cynicu-test:
+	@echo "go CynicU-test generate"
+	$(GOBUILD) -o bin/CynicU_server main/CynicUServer.go
+	$(GOBUILD) -o bin/CynicU_client main/CynicUClient.go
+	$(GOBUILD) -o bin/CynicU_send_server main/CynicU-sendServer.go
+	$(GOBUILD) -o bin/CynicU_send_client main/CynicU-sendClient.go
+	@cp -r test_script/CynicU-test bin/
+
+clear:
+	@rm -rf bin/
