@@ -30,7 +30,6 @@ func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 		md5 string
 		n int
 		b []byte
-		ack = make([]byte, 32)
 		errCh chan error
 		finCh chan error
 	)
@@ -59,13 +58,15 @@ func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 		} else {
 			errCh <- TooLongMsgErr
 		}
+		var ack = make([]byte, 32)
 		n, err = c.conn.Read(ack)
 		if n != 32 {
 			errCh <- AckLengthErr
+			return
 		}
-
 		if string(ack) != md5 {
 			errCh <- AckContentErr
+			return
 		}
 		close(finCh)
 	}
@@ -84,8 +85,9 @@ func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 }
 
 func NewClient(addr string) *Client {
-	return &Client{
+	c :=  &Client{
 		addr: addr,
-		TimeoutLimit: 1 * time.Second,
+		TimeoutLimit: 200 * time.Millisecond,
 	}
+	return c
 }

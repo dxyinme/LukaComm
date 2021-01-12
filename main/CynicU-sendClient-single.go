@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"github.com/dxyinme/LukaComm/CynicU/SendMsg"
 	"github.com/dxyinme/LukaComm/chatMsg"
 	"log"
@@ -9,12 +8,8 @@ import (
 	"time"
 )
 
-var (
-	isSleepSend = flag.Bool("isSleep",false,"wait after send")
-)
-
 func main() {
-	flag.Parse()
+	Cnt := 10000
 	msg := &chatMsg.Msg{
 		From:           "example",
 		Target:         "example2",
@@ -27,14 +22,26 @@ func main() {
 		MsgId:          "",
 	}
 
+	startTime := time.Now()
+	timeout := 0
 	c := SendMsg.NewClient("127.0.0.1:8080")
-	err := c.SendTo(msg)
-	if err != nil {
-		log.Println(err)
+	wg := sync.WaitGroup{}
+	wg.Add(Cnt)
+	for i := 0 ; i < Cnt ; i ++ {
+		go func() {
+			msgNow := *msg
+			msgNow.SendTime = time.Now().String()
+			err := c.SendTo(&msgNow)
+			if err != nil {
+				log.Println(err)
+				timeout ++
+			}
+			wg.Done()
+		}()
 	}
-	if *isSleepSend {
-		wg := sync.WaitGroup{}
-		wg.Add(1)
-		wg.Wait()
-	}
+	wg.Wait()
+
+	log.Println("time use:", time.Now().Sub(startTime))
+	log.Println("time out:", timeout)
+
 }

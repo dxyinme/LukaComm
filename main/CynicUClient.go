@@ -17,7 +17,7 @@ func main() {
 	flag.Parse()
 	var err error
 	client := &CynicUClient.Client{}
-	err = client.Initial("localhost:8080", time.Second*3)
+	err = client.Initial("localhost:8080", time.Second * 3)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -29,6 +29,7 @@ func main() {
 		Content:        []byte("test"),
 		MsgType:        chatMsg.MsgType_Single,
 		MsgContentType: chatMsg.MsgContentType_Text,
+		SendTime:       time.Now().String(),
 	})
 	if err != nil {
 		log.Fatalln(err)

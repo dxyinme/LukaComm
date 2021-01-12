@@ -3,7 +3,7 @@ echo "start cynic server"
 nohup ./CynicU_server &
 echo "sleep 5 second"
 sleep 5s
-echo "start cynic client"
+echo "start cynicU client"
 
 echo "cnt clients =" $1
 

@@ -4,6 +4,15 @@ import (
 	CynicUServer "github.com/dxyinme/LukaComm/CynicU/Server"
 	"github.com/dxyinme/LukaComm/chatMsg"
 	"log"
+	"os"
+	"sync"
+)
+
+
+
+var (
+	mu sync.Mutex
+	recvCnt int64 = 0
 )
 
 type wk struct {
@@ -39,6 +48,10 @@ func (w *wk) DeleteGroup(req *chatMsg.GroupReq) error {
 
 func (w *wk) SendTo(msg *chatMsg.Msg) {
 	log.Println(msg)
+	mu.Lock()
+	defer mu.Unlock()
+	recvCnt ++
+	log.Println(recvCnt)
 }
 
 func (w *wk) Pull(targetIs string) (*chatMsg.MsgPack, error) {
@@ -51,6 +64,7 @@ func (w *wk) PullAll(targetIs string) (*chatMsg.MsgPack, error) {
 }
 
 func main() {
+	log.Printf("PID=%d\n", os.Getpid())
 	s := &CynicUServer.Server{}
 	gServe := s.NewCynicUServer(":8080", "Luka")
 	s.BindWorkerPool(&wk{})
