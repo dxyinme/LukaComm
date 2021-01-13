@@ -11,7 +11,7 @@ import (
 func main() {
 	var err error
 	client := &CynicUClient.Client{}
-	err = client.Initial("localhost:8080", time.Millisecond * 800)
+	err = client.Initial("localhost:8080", time.Millisecond * 200)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,6 +37,7 @@ func main() {
 				timeout ++
 			}
 		}()
+		time.Sleep(5 * time.Millisecond)
 	}
 
 	wg.Wait()

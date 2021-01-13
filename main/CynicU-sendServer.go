@@ -21,7 +21,7 @@ func recv(server *SendMsg.Server) {
 		if recvCntSend == 1 {
 			bgT = msg.SendTime
 		}
-		if recvCntSend == 10000 {
+		if recvCntSend == 1000 {
 			log.Println(bgT, time.Now().String())
 		}
 	}

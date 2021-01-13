@@ -27,7 +27,7 @@ func (s *Server) GetMsg() *chatMsg.Msg {
 }
 
 func (s *Server) Handle(b []byte, rAddr *net.UDPAddr) {
-	log.Println(rAddr.String())
+	//log.Println(rAddr.String())
 	msgNow := &chatMsg.Msg{}
 	md5 := []byte(MD5.CalcMD5(b))
 	err := proto.Unmarshal(b, msgNow)
@@ -63,7 +63,7 @@ func (s *Server) Listen(addr string) (err error) {
 		)
 		b := make([]byte, PacketSize)
 		n, rAddr, err = s.conn.ReadFromUDP(b)
-		log.Println(len(b))
+		//log.Println(len(b))
 		if err != nil {
 			log.Println(err)
 			break
