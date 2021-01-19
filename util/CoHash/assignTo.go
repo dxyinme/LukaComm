@@ -1,6 +1,7 @@
 package CoHash
 
 import (
+	"errors"
 	"fmt"
 	"sort"
 	"sync"
@@ -17,11 +18,17 @@ func (a *AssignToStruct) SetKeeperIDs(NewKeeperIDs []int) {
 	a.KeeperIDs = NewKeeperIDs
 }
 
-func (a *AssignToStruct) AppendKeeper(keeperId uint32) {
+func (a *AssignToStruct) AppendKeeper(keeperId uint32) error {
 	a.muAssign.Lock()
 	defer a.muAssign.Unlock()
+	for _,v := range a.KeeperIDs {
+		if v == int(keeperId) {
+			return errors.New("same keeperId")
+		}
+	}
 	a.KeeperIDs = append(a.KeeperIDs, int(keeperId))
 	sort.Ints(a.KeeperIDs)
+	return nil
 }
 
 func (a *AssignToStruct) RemoveKeeper(keeperId uint32) error {
