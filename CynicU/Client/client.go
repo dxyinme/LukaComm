@@ -33,6 +33,9 @@ func (c *Client) SendTo(msg *chatMsg.Msg) error {
 		return err
 	}
 	pbMsg, err = proto.Marshal(msg)
+	if err != nil {
+		return err
+	}
 	md5Msg = MD5.CalcMD5(pbMsg)
 	if resp.Md5 != md5Msg {
 		return fmt.Errorf("error ack")
