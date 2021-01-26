@@ -42,7 +42,7 @@ func (a *AssignToStruct) RemoveKeeper(keeperId uint32) error {
 		}
 	}
 	if wanted == -1 {
-		return fmt.Errorf("Not Found In keeperIDs")
+		return fmt.Errorf("not Found In keeperIDs")
 	}
 	a.KeeperIDs = append(a.KeeperIDs[:wanted], a.KeeperIDs[wanted+1:]...)
 	return nil
