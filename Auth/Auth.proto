@@ -25,6 +25,11 @@ message SignUpRsp {
     string errorMsg = 1;
 }
 
+message ChangeInfoReq {
+    UserPassword oldPassword = 1;
+    UserInfo newUserInfo = 2;
+}
+
 message ChangeInfoRsp {
     string errorMsg = 1;
 }
@@ -44,7 +49,7 @@ service Auth {
 
     rpc SignUp(UserInfo) returns (SignUpRsp);
 
-    rpc ChangeInfo(UserInfo) returns (ChangeInfoRsp);
+    rpc ChangeInfo(ChangeInfoReq) returns (ChangeInfoRsp);
 
     rpc GetAuthPubKey(GetAuthPubKeyReq) returns (GetAuthPubKeyRsp);
 }
