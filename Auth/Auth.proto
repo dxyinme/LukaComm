@@ -14,6 +14,7 @@ message UserGroupInfo {
 message UserInfo {
     UserPassword userPassword = 1;
     string name = 2;
+    bytes rsaPubKey = 3;
 }
 
 message LoginRsp {
@@ -28,6 +29,15 @@ message ChangeInfoRsp {
     string errorMsg = 1;
 }
 
+message GetAuthPubKeyReq {
+    string Uid = 1;
+}
+
+message GetAuthPubKeyRsp {
+    string errorMsg = 1;
+    bytes authRsaPubKey = 2;
+}
+
 service Auth {
 
     rpc Login(UserPassword) returns (LoginRsp);
@@ -35,4 +45,6 @@ service Auth {
     rpc SignUp(UserInfo) returns (SignUpRsp);
 
     rpc ChangeInfo(UserInfo) returns (ChangeInfoRsp);
+
+    rpc GetAuthPubKey(GetAuthPubKeyReq) returns (GetAuthPubKeyRsp);
 }
