@@ -45,6 +45,7 @@ message GetAuthPubKeyRsp {
 
 message SetAuthPubKeyReq {
     string Uid = 1;
+    bytes authRsaPubKey = 2;
 }
 
 message SetAuthPubKeyRsp {
