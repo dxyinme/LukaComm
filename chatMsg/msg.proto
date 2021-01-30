@@ -6,6 +6,8 @@ enum MsgContentType {
     Text = 1;
     Img = 2;
     Video = 3;
+    // In order to use RSA to change AES code.
+    KeyAgreement = 4;
 }
 
 enum MsgType {
@@ -28,6 +30,10 @@ message Msg {
     // group chat usage.
     string groupName = 7;
     bool spread = 8;
+
+    // noSecret = 0, AES = 1
+    int32 SecretLevel = 9;
+
     // msgId
     string msgId = 30;
 }
