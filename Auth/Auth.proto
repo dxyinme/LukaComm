@@ -43,6 +43,15 @@ message GetAuthPubKeyRsp {
     bytes authRsaPubKey = 2;
 }
 
+message SetAuthPubKeyReq {
+    string Uid = 1;
+}
+
+message SetAuthPubKeyRsp {
+    string errorMsg = 1;
+}
+
+
 service Auth {
 
     rpc Login(UserPassword) returns (LoginRsp);
@@ -52,4 +61,6 @@ service Auth {
     rpc ChangeInfo(ChangeInfoReq) returns (ChangeInfoRsp);
 
     rpc GetAuthPubKey(GetAuthPubKeyReq) returns (GetAuthPubKeyRsp);
+
+    rpc SetAuthPubKey(SetAuthPubKeyReq) returns (SetAuthPubKeyRsp);
 }

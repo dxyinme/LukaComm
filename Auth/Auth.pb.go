@@ -500,6 +500,100 @@ func (x *GetAuthPubKeyRsp) GetAuthRsaPubKey() []byte {
 	return nil
 }
 
+type SetAuthPubKeyReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Uid string `protobuf:"bytes,1,opt,name=Uid,json=uid,proto3" json:"Uid,omitempty"`
+}
+
+func (x *SetAuthPubKeyReq) Reset() {
+	*x = SetAuthPubKeyReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Auth_Auth_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SetAuthPubKeyReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetAuthPubKeyReq) ProtoMessage() {}
+
+func (x *SetAuthPubKeyReq) ProtoReflect() protoreflect.Message {
+	mi := &file_Auth_Auth_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetAuthPubKeyReq.ProtoReflect.Descriptor instead.
+func (*SetAuthPubKeyReq) Descriptor() ([]byte, []int) {
+	return file_Auth_Auth_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *SetAuthPubKeyReq) GetUid() string {
+	if x != nil {
+		return x.Uid
+	}
+	return ""
+}
+
+type SetAuthPubKeyRsp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ErrorMsg string `protobuf:"bytes,1,opt,name=errorMsg,proto3" json:"errorMsg,omitempty"`
+}
+
+func (x *SetAuthPubKeyRsp) Reset() {
+	*x = SetAuthPubKeyRsp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Auth_Auth_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SetAuthPubKeyRsp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetAuthPubKeyRsp) ProtoMessage() {}
+
+func (x *SetAuthPubKeyRsp) ProtoReflect() protoreflect.Message {
+	mi := &file_Auth_Auth_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetAuthPubKeyRsp.ProtoReflect.Descriptor instead.
+func (*SetAuthPubKeyRsp) Descriptor() ([]byte, []int) {
+	return file_Auth_Auth_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *SetAuthPubKeyRsp) GetErrorMsg() string {
+	if x != nil {
+		return x.ErrorMsg
+	}
+	return ""
+}
+
 var File_Auth_Auth_proto protoreflect.FileDescriptor
 
 var file_Auth_Auth_proto_rawDesc = []byte{
@@ -543,21 +637,30 @@ var file_Auth_Auth_proto_rawDesc = []byte{
 	0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x4d, 0x73, 0x67, 0x12, 0x24, 0x0a,
 	0x0d, 0x61, 0x75, 0x74, 0x68, 0x52, 0x73, 0x61, 0x50, 0x75, 0x62, 0x4b, 0x65, 0x79, 0x18, 0x02,
 	0x20, 0x01, 0x28, 0x0c, 0x52, 0x0d, 0x61, 0x75, 0x74, 0x68, 0x52, 0x73, 0x61, 0x50, 0x75, 0x62,
-	0x4b, 0x65, 0x79, 0x32, 0xd7, 0x01, 0x0a, 0x04, 0x41, 0x75, 0x74, 0x68, 0x12, 0x2b, 0x0a, 0x05,
-	0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x12, 0x12, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x2e, 0x55, 0x73, 0x65,
-	0x72, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x1a, 0x0e, 0x2e, 0x41, 0x75, 0x74, 0x68,
-	0x2e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x73, 0x70, 0x12, 0x29, 0x0a, 0x06, 0x53, 0x69, 0x67,
-	0x6e, 0x55, 0x70, 0x12, 0x0e, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49,
-	0x6e, 0x66, 0x6f, 0x1a, 0x0f, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x55,
-	0x70, 0x52, 0x73, 0x70, 0x12, 0x36, 0x0a, 0x0a, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x49, 0x6e,
-	0x66, 0x6f, 0x12, 0x13, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x2e, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65,
-	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a, 0x13, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x2e, 0x43,
-	0x68, 0x61, 0x6e, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x73, 0x70, 0x12, 0x3f, 0x0a, 0x0d,
-	0x47, 0x65, 0x74, 0x41, 0x75, 0x74, 0x68, 0x50, 0x75, 0x62, 0x4b, 0x65, 0x79, 0x12, 0x16, 0x2e,
-	0x41, 0x75, 0x74, 0x68, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x75, 0x74, 0x68, 0x50, 0x75, 0x62, 0x4b,
-	0x65, 0x79, 0x52, 0x65, 0x71, 0x1a, 0x16, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x2e, 0x47, 0x65, 0x74,
-	0x41, 0x75, 0x74, 0x68, 0x50, 0x75, 0x62, 0x4b, 0x65, 0x79, 0x52, 0x73, 0x70, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x4b, 0x65, 0x79, 0x22, 0x24, 0x0a, 0x10, 0x53, 0x65, 0x74, 0x41, 0x75, 0x74, 0x68, 0x50, 0x75,
+	0x62, 0x4b, 0x65, 0x79, 0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03, 0x55, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x69, 0x64, 0x22, 0x2e, 0x0a, 0x10, 0x53, 0x65, 0x74,
+	0x41, 0x75, 0x74, 0x68, 0x50, 0x75, 0x62, 0x4b, 0x65, 0x79, 0x52, 0x73, 0x70, 0x12, 0x1a, 0x0a,
+	0x08, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x4d, 0x73, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x08, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x4d, 0x73, 0x67, 0x32, 0x98, 0x02, 0x0a, 0x04, 0x41, 0x75,
+	0x74, 0x68, 0x12, 0x2b, 0x0a, 0x05, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x12, 0x12, 0x2e, 0x41, 0x75,
+	0x74, 0x68, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x1a,
+	0x0e, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x2e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x73, 0x70, 0x12,
+	0x29, 0x0a, 0x06, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x12, 0x0e, 0x2e, 0x41, 0x75, 0x74, 0x68,
+	0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x0f, 0x2e, 0x41, 0x75, 0x74, 0x68,
+	0x2e, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x73, 0x70, 0x12, 0x36, 0x0a, 0x0a, 0x43, 0x68,
+	0x61, 0x6e, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x13, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x2e,
+	0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a, 0x13, 0x2e,
+	0x41, 0x75, 0x74, 0x68, 0x2e, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52,
+	0x73, 0x70, 0x12, 0x3f, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x41, 0x75, 0x74, 0x68, 0x50, 0x75, 0x62,
+	0x4b, 0x65, 0x79, 0x12, 0x16, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x75,
+	0x74, 0x68, 0x50, 0x75, 0x62, 0x4b, 0x65, 0x79, 0x52, 0x65, 0x71, 0x1a, 0x16, 0x2e, 0x41, 0x75,
+	0x74, 0x68, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x75, 0x74, 0x68, 0x50, 0x75, 0x62, 0x4b, 0x65, 0x79,
+	0x52, 0x73, 0x70, 0x12, 0x3f, 0x0a, 0x0d, 0x53, 0x65, 0x74, 0x41, 0x75, 0x74, 0x68, 0x50, 0x75,
+	0x62, 0x4b, 0x65, 0x79, 0x12, 0x16, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x2e, 0x53, 0x65, 0x74, 0x41,
+	0x75, 0x74, 0x68, 0x50, 0x75, 0x62, 0x4b, 0x65, 0x79, 0x52, 0x65, 0x71, 0x1a, 0x16, 0x2e, 0x41,
+	0x75, 0x74, 0x68, 0x2e, 0x53, 0x65, 0x74, 0x41, 0x75, 0x74, 0x68, 0x50, 0x75, 0x62, 0x4b, 0x65,
+	0x79, 0x52, 0x73, 0x70, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -572,7 +675,7 @@ func file_Auth_Auth_proto_rawDescGZIP() []byte {
 	return file_Auth_Auth_proto_rawDescData
 }
 
-var file_Auth_Auth_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_Auth_Auth_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_Auth_Auth_proto_goTypes = []interface{}{
 	(*UserPassword)(nil),     // 0: Auth.UserPassword
 	(*UserGroupInfo)(nil),    // 1: Auth.UserGroupInfo
@@ -583,24 +686,28 @@ var file_Auth_Auth_proto_goTypes = []interface{}{
 	(*ChangeInfoRsp)(nil),    // 6: Auth.ChangeInfoRsp
 	(*GetAuthPubKeyReq)(nil), // 7: Auth.GetAuthPubKeyReq
 	(*GetAuthPubKeyRsp)(nil), // 8: Auth.GetAuthPubKeyRsp
+	(*SetAuthPubKeyReq)(nil), // 9: Auth.SetAuthPubKeyReq
+	(*SetAuthPubKeyRsp)(nil), // 10: Auth.SetAuthPubKeyRsp
 }
 var file_Auth_Auth_proto_depIdxs = []int32{
-	0, // 0: Auth.UserInfo.userPassword:type_name -> Auth.UserPassword
-	0, // 1: Auth.ChangeInfoReq.oldPassword:type_name -> Auth.UserPassword
-	2, // 2: Auth.ChangeInfoReq.newUserInfo:type_name -> Auth.UserInfo
-	0, // 3: Auth.Auth.Login:input_type -> Auth.UserPassword
-	2, // 4: Auth.Auth.SignUp:input_type -> Auth.UserInfo
-	5, // 5: Auth.Auth.ChangeInfo:input_type -> Auth.ChangeInfoReq
-	7, // 6: Auth.Auth.GetAuthPubKey:input_type -> Auth.GetAuthPubKeyReq
-	3, // 7: Auth.Auth.Login:output_type -> Auth.LoginRsp
-	4, // 8: Auth.Auth.SignUp:output_type -> Auth.SignUpRsp
-	6, // 9: Auth.Auth.ChangeInfo:output_type -> Auth.ChangeInfoRsp
-	8, // 10: Auth.Auth.GetAuthPubKey:output_type -> Auth.GetAuthPubKeyRsp
-	7, // [7:11] is the sub-list for method output_type
-	3, // [3:7] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0,  // 0: Auth.UserInfo.userPassword:type_name -> Auth.UserPassword
+	0,  // 1: Auth.ChangeInfoReq.oldPassword:type_name -> Auth.UserPassword
+	2,  // 2: Auth.ChangeInfoReq.newUserInfo:type_name -> Auth.UserInfo
+	0,  // 3: Auth.Auth.Login:input_type -> Auth.UserPassword
+	2,  // 4: Auth.Auth.SignUp:input_type -> Auth.UserInfo
+	5,  // 5: Auth.Auth.ChangeInfo:input_type -> Auth.ChangeInfoReq
+	7,  // 6: Auth.Auth.GetAuthPubKey:input_type -> Auth.GetAuthPubKeyReq
+	9,  // 7: Auth.Auth.SetAuthPubKey:input_type -> Auth.SetAuthPubKeyReq
+	3,  // 8: Auth.Auth.Login:output_type -> Auth.LoginRsp
+	4,  // 9: Auth.Auth.SignUp:output_type -> Auth.SignUpRsp
+	6,  // 10: Auth.Auth.ChangeInfo:output_type -> Auth.ChangeInfoRsp
+	8,  // 11: Auth.Auth.GetAuthPubKey:output_type -> Auth.GetAuthPubKeyRsp
+	10, // 12: Auth.Auth.SetAuthPubKey:output_type -> Auth.SetAuthPubKeyRsp
+	8,  // [8:13] is the sub-list for method output_type
+	3,  // [3:8] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_Auth_Auth_proto_init() }
@@ -717,6 +824,30 @@ func file_Auth_Auth_proto_init() {
 				return nil
 			}
 		}
+		file_Auth_Auth_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetAuthPubKeyReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Auth_Auth_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetAuthPubKeyRsp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -724,7 +855,7 @@ func file_Auth_Auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_Auth_Auth_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -754,6 +885,7 @@ type AuthClient interface {
 	SignUp(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*SignUpRsp, error)
 	ChangeInfo(ctx context.Context, in *ChangeInfoReq, opts ...grpc.CallOption) (*ChangeInfoRsp, error)
 	GetAuthPubKey(ctx context.Context, in *GetAuthPubKeyReq, opts ...grpc.CallOption) (*GetAuthPubKeyRsp, error)
+	SetAuthPubKey(ctx context.Context, in *SetAuthPubKeyReq, opts ...grpc.CallOption) (*SetAuthPubKeyRsp, error)
 }
 
 type authClient struct {
@@ -800,12 +932,22 @@ func (c *authClient) GetAuthPubKey(ctx context.Context, in *GetAuthPubKeyReq, op
 	return out, nil
 }
 
+func (c *authClient) SetAuthPubKey(ctx context.Context, in *SetAuthPubKeyReq, opts ...grpc.CallOption) (*SetAuthPubKeyRsp, error) {
+	out := new(SetAuthPubKeyRsp)
+	err := c.cc.Invoke(ctx, "/Auth.Auth/SetAuthPubKey", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 type AuthServer interface {
 	Login(context.Context, *UserPassword) (*LoginRsp, error)
 	SignUp(context.Context, *UserInfo) (*SignUpRsp, error)
 	ChangeInfo(context.Context, *ChangeInfoReq) (*ChangeInfoRsp, error)
 	GetAuthPubKey(context.Context, *GetAuthPubKeyReq) (*GetAuthPubKeyRsp, error)
+	SetAuthPubKey(context.Context, *SetAuthPubKeyReq) (*SetAuthPubKeyRsp, error)
 }
 
 // UnimplementedAuthServer can be embedded to have forward compatible implementations.
@@ -823,6 +965,9 @@ func (*UnimplementedAuthServer) ChangeInfo(context.Context, *ChangeInfoReq) (*Ch
 }
 func (*UnimplementedAuthServer) GetAuthPubKey(context.Context, *GetAuthPubKeyReq) (*GetAuthPubKeyRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAuthPubKey not implemented")
+}
+func (*UnimplementedAuthServer) SetAuthPubKey(context.Context, *SetAuthPubKeyReq) (*SetAuthPubKeyRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetAuthPubKey not implemented")
 }
 
 func RegisterAuthServer(s *grpc.Server, srv AuthServer) {
@@ -901,6 +1046,24 @@ func _Auth_GetAuthPubKey_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_SetAuthPubKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetAuthPubKeyReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).SetAuthPubKey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Auth.Auth/SetAuthPubKey",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).SetAuthPubKey(ctx, req.(*SetAuthPubKeyReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Auth_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "Auth.Auth",
 	HandlerType: (*AuthServer)(nil),
@@ -920,6 +1083,10 @@ var _Auth_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAuthPubKey",
 			Handler:    _Auth_GetAuthPubKey_Handler,
+		},
+		{
+			MethodName: "SetAuthPubKey",
+			Handler:    _Auth_SetAuthPubKey_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
