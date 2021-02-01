@@ -36,6 +36,10 @@ func (c *Cryptor) GetPubKeyByte() []byte {
 	return c.pubKeyByte
 }
 
+func (c *Cryptor) SetPriKey(pri *rsa.PrivateKey) {
+	c.priKey = pri
+}
+
 func (c *Cryptor) Decode(cipherText []byte) ([]byte, error) {
 	var (
 		plainText []byte
