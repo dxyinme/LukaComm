@@ -2,7 +2,9 @@ package Client
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"github.com/dxyinme/LukaComm/Auth"
 	"github.com/dxyinme/LukaComm/chatMsg"
 	"github.com/dxyinme/LukaComm/util/Const"
 	"github.com/dxyinme/LukaComm/util/MD5"
@@ -41,6 +43,64 @@ func (c *Client) SendTo(msg *chatMsg.Msg) error {
 		return fmt.Errorf("error ack")
 	}
 	return nil
+}
+
+func (c *Client) SendKeyAgreement(from, target string, keyAfterRsa []byte) error {
+	keyAgreementMsg := &chatMsg.Msg{
+		From:           from,
+		Target:         target,
+		Content:        keyAfterRsa,
+		MsgType:        chatMsg.MsgType_Single,
+		MsgContentType: chatMsg.MsgContentType_KeyAgreement,
+		SendTime:       time.Now().String(),
+	}
+	return c.SendTo(keyAgreementMsg)
+}
+
+func (c *Client) GetAuthPubKey(host, uid string) ([]byte,error) {
+	conn, err := grpc.Dial(host, grpc.WithInsecure())
+	if err != nil {
+		return nil, err
+	}
+	nowContext, cancel := context.WithTimeout(context.Background(), c.timeout)
+	defer cancel()
+	authClient := Auth.NewAuthClient(conn)
+	rsp, err := authClient.GetAuthPubKey(nowContext, &Auth.GetAuthPubKeyReq{
+		Uid: uid,
+	})
+	if err != nil {
+		return nil, err
+	}
+	if rsp == nil {
+		return nil, errors.New("no response")
+	}
+	return rsp.AuthRsaPubKey, nil
+}
+
+func (c *Client) SetAuthPubKey(host, uid string, pubKey []byte) error {
+	conn, err := grpc.Dial(host, grpc.WithInsecure())
+	if err != nil {
+		return err
+	}
+	nowContext, cancel := context.WithTimeout(context.Background(), c.timeout)
+	defer cancel()
+	authClient := Auth.NewAuthClient(conn)
+	rsp, err := authClient.SetAuthPubKey(nowContext, &Auth.SetAuthPubKeyReq{
+		Uid: uid,
+		AuthRsaPubKey: pubKey,
+	})
+	if err != nil {
+		return err
+	}
+	if rsp == nil {
+		return errors.New("no response")
+	}
+	return errors.New(rsp.ErrorMsg)
+}
+
+func (c *Client) SendToInSecret(msg *chatMsg.Msg) error {
+	msg.SecretLevel = 1
+	return c.SendTo(msg)
 }
 
 func (c *Client) Pull(req *chatMsg.PullReq) (*chatMsg.MsgPack, error) {
