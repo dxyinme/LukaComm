@@ -95,7 +95,10 @@ func (c *Client) SetAuthPubKey(host, uid string, pubKey []byte) error {
 	if rsp == nil {
 		return errors.New("no response")
 	}
-	return errors.New(rsp.ErrorMsg)
+	if rsp.ErrorMsg != "" {
+		return errors.New(rsp.ErrorMsg)
+	}
+	return nil
 }
 
 func (c *Client) SendToInSecret(msg *chatMsg.Msg) error {
