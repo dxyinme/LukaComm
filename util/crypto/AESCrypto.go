@@ -48,3 +48,9 @@ func (A *AESCrypto) DecodeCBC(cipherText []byte) (plainText []byte, err error) {
 	plainText = PKCS5UnPadding(plainText)
 	return plainText, nil
 }
+
+func NewAESCrypto(key []byte) *AESCrypto {
+	return &AESCrypto{
+		key:key,
+	}
+}
