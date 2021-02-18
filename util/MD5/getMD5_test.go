@@ -4,6 +4,7 @@ import (
 	"github.com/dxyinme/LukaComm/chatMsg"
 	"google.golang.org/protobuf/proto"
 	"log"
+	"os"
 	"testing"
 )
 
@@ -29,5 +30,28 @@ func TestCalcMD5(t *testing.T) {
 	copy(t2,nowt)
 	if CalcMD5(t1) == CalcMD5(t2) {
 		t.Errorf("%v == %v", t1, t2)
+	}
+}
+
+func TestCalcMD5File(t *testing.T) {
+	filename := "oo.txt"
+	fp, err := os.Create(filename)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for i := 0 ; i < 1000; i ++ {
+		_,_ = fp.Write([]byte("13kkewfiuwifgdew"))
+	}
+	fp.Close()
+	md5res , err := CalcMD5File(filename)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if md5res != "c3234aac44c95ea89747ef3d66946704" {
+		t.Fatal("md5sum error")
+	}
+	err = os.Remove(filename)
+	if err != nil {
+		t.Fatal(err)
 	}
 }
