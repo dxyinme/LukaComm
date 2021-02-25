@@ -23,19 +23,14 @@ func main() {
 	}
 
 	startTime := time.Now()
-	timeout := 0
-	c := SendMsg.NewClient("127.0.0.1:8080")
+	c := SendMsg.NewSendClientPool(2, "127.0.0.1:8080")
 	wg := sync.WaitGroup{}
 	wg.Add(Cnt)
 	for i := 0 ; i < Cnt ; i ++ {
 		go func() {
 			msgNow := *msg
 			msgNow.SendTime = time.Now().String()
-			err := c.SendTo(&msgNow)
-			if err != nil {
-				log.Println(err)
-				timeout ++
-			}
+			c.SendTo(&msgNow)
 			wg.Done()
 		}()
 		//time.Sleep(5 * time.Millisecond)
@@ -43,6 +38,5 @@ func main() {
 	wg.Wait()
 
 	log.Println("time use:", time.Now().Sub(startTime))
-	log.Println("time out:", timeout)
 
 }

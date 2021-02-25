@@ -1,6 +1,7 @@
 package CoHash
 
 import (
+	"log"
 	"sync"
 	"testing"
 )
@@ -43,5 +44,26 @@ func TestAssignTo(t *testing.T) {
 	if result != expected {
 		t.Errorf("expected %v but %v", expected, result)
 	}
+}
 
+
+func TestAssignTo_2(t *testing.T) {
+	ats := AssignToStruct{
+		muAssign:  sync.RWMutex{},
+		KeeperIDs: []int{},
+	}
+	test1 := &UID{Uid: "test1"}
+	test2 := &UID{Uid: "test2"}
+
+	log.Println("test1:", test1.GetHash())
+	log.Println("test2:", test2.GetHash())
+
+	err := ats.AppendKeeper(574203662)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = ats.AppendKeeper(3155393867)
+	if err != nil {
+		t.Fatal(err)
+	}
 }

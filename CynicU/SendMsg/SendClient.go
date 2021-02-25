@@ -7,6 +7,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	"log"
 	"net"
+	"sync"
 	"time"
 )
 
@@ -23,9 +24,13 @@ type Client struct {
 	TimeoutLimit time.Duration
 
 	addr string
+
+	mu_ sync.Mutex
 }
 
 func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
+	c.mu_.Lock()
+	defer c.mu_.Unlock()
 	var (
 		md5 string
 		n int
