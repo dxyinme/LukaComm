@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	Cnt := 10000
+	Cnt := 1000
 	msg := &chatMsg.Msg{
 		From:           "example",
 		Target:         "example2",
@@ -33,7 +33,7 @@ func main() {
 			c.SendTo(&msgNow)
 			wg.Done()
 		}()
-		//time.Sleep(5 * time.Millisecond)
+		time.Sleep(5 * time.Millisecond)
 	}
 	wg.Wait()
 
