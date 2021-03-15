@@ -192,7 +192,7 @@ func (c *Client) SetTimeout(timeout time.Duration) {
 	c.timeout = timeout
 }
 
-func (c *Client) reconnect() error {
+func (c *Client) Reconnect() error {
 	conn, err := grpc.Dial(c.host, grpc.WithInsecure())
 	if err != nil {
 		return err
