@@ -26,11 +26,37 @@ type Client struct {
 	addr string
 
 	mu_ sync.Mutex
+
+	nowPacketSize int
+
+	lossTime int
+
+	allTime int
+
+	retry int
+
+	modifyInterval int
+}
+
+func (c *Client) modifyNowPacketSize() {
+	if c.lossTime == 0 {
+		c.nowPacketSize *= 2
+		if c.nowPacketSize > ServerPacketSize {
+			c.nowPacketSize = ServerPacketSize
+		}
+	} else if c.lossTime < 5 {
+
+	} else {
+		c.nowPacketSize /= 2
+	}
+	c.lossTime = 0
+	c.allTime = 0
 }
 
 func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 	c.mu_.Lock()
 	defer c.mu_.Unlock()
+	c.allTime ++
 	var (
 		md5 string
 		n int
@@ -38,8 +64,8 @@ func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 		errCh chan error
 		finCh chan error
 	)
-	finCh = make(chan error, 1)
-	errCh = make(chan error, 1)
+	errCh = make(chan error, c.retry)
+	finCh = make(chan error, c.retry)
 	f := func() {
 		var errF error
 		c.conn, errF = net.Dial("udp", c.addr)
@@ -53,15 +79,21 @@ func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 			errCh <- errF
 			return
 		}
-		if len(b) <= PacketSize {
-			md5 = MD5.CalcMD5(b)
-			_, errF = c.conn.Write(b)
-			if errF != nil {
-				errCh <- errF
-				return
+		if len(b) <= c.nowPacketSize {
+			for retryTime := 0 ; retryTime < c.retry ; retryTime ++ {
+				md5 = MD5.CalcMD5(b)
+				_, errF = c.conn.Write(b)
+				if errF != nil {
+					c.lossTime ++
+				} else {
+					break
+				}
 			}
 		} else {
 			errCh <- TooLongMsgErr
+		}
+		if errF != nil {
+			errCh <- errF
 		}
 		var ack = make([]byte, 32)
 		n, err = c.conn.Read(ack)
@@ -86,6 +118,9 @@ func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 	case <- finCh:
 		break
 	}
+	if c.allTime >= c.modifyInterval {
+		c.modifyNowPacketSize()
+	}
 	return
 }
 
@@ -93,6 +128,8 @@ func NewClient(addr string) *Client {
 	c :=  &Client{
 		addr: addr,
 		TimeoutLimit: 200 * time.Millisecond,
+		nowPacketSize: PacketSize,
+		retry: 3,
 	}
 	return c
 }

@@ -9,8 +9,10 @@ import (
 )
 
 const (
-	PacketSize = 512
+	PacketSize = 512	// the smallest packetSize
 	ChannelSize = 10
+
+	ServerPacketSize = 1 << 20
 )
 
 type Server struct {
@@ -61,7 +63,7 @@ func (s *Server) Listen(addr string) (err error) {
 			rAddr *net.UDPAddr
 			n int
 		)
-		b := make([]byte, PacketSize)
+		b := make([]byte, ServerPacketSize)
 		n, rAddr, err = s.conn.ReadFromUDP(b)
 		//log.Println(len(b))
 		if err != nil {
