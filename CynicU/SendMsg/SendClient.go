@@ -45,7 +45,7 @@ func (c *Client) modifyNowPacketSize() {
 			c.nowPacketSize = ServerPacketSize
 		}
 	} else if c.lossTime < 5 {
-
+		// nothing to do
 	} else {
 		c.nowPacketSize /= 2
 	}
@@ -130,6 +130,18 @@ func NewClient(addr string) *Client {
 		TimeoutLimit: 200 * time.Millisecond,
 		nowPacketSize: PacketSize,
 		retry: 3,
+		modifyInterval: 100,
+	}
+	return c
+}
+
+func NewClientModify(addr string, modifyInterval int) *Client {
+	c :=  &Client{
+		addr: addr,
+		TimeoutLimit: 200 * time.Millisecond,
+		nowPacketSize: PacketSize,
+		retry: 3,
+		modifyInterval: modifyInterval,
 	}
 	return c
 }
