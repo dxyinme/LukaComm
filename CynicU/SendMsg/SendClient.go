@@ -58,7 +58,7 @@ func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 	defer c.mu_.Unlock()
 	c.allTime ++
 	var (
-		md5 string
+		md5 []byte
 		n int
 		b []byte
 		errCh chan error
@@ -81,7 +81,7 @@ func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 		}
 		if len(b) <= c.nowPacketSize {
 			for retryTime := 0 ; retryTime < c.retry ; retryTime ++ {
-				md5 = MD5.CalcMD5(b)
+				md5 = MD5.CalcMD5ToByte(b)
 				_, errF = c.conn.Write(b)
 				if errF != nil {
 					c.lossTime ++
@@ -95,13 +95,13 @@ func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 		if errF != nil {
 			errCh <- errF
 		}
-		var ack = make([]byte, 32)
+		var ack = make([]byte, AckLength)
 		n, err = c.conn.Read(ack)
-		if n != 32 {
+		if n != AckLength {
 			errCh <- AckLengthErr
 			return
 		}
-		if string(ack) != md5 {
+		if !IsEqual(ack, md5) {
 			errCh <- AckContentErr
 			return
 		}

@@ -33,7 +33,7 @@ func main() {
 			c.SendTo(&msgNow)
 			wg.Done()
 		}()
-		time.Sleep(5 * time.Millisecond)
+		//time.Sleep(5 * time.Millisecond)
 	}
 	wg.Wait()
 

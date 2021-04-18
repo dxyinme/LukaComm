@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	Cnt := 10000
+	Cnt := 1000
 	msg := &chatMsg.Msg{
 		From:           "example",
 		Target:         "example2",

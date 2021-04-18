@@ -31,7 +31,7 @@ func (s *Server) GetMsg() *chatMsg.Msg {
 func (s *Server) Handle(b []byte, rAddr *net.UDPAddr) {
 	//log.Println(rAddr.String())
 	msgNow := &chatMsg.Msg{}
-	md5 := []byte(MD5.CalcMD5(b))
+	md5 := MD5.CalcMD5ToByte(b)
 	err := proto.Unmarshal(b, msgNow)
 	if err != nil {
 		log.Println(msgNow, err)

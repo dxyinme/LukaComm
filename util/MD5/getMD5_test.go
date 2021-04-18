@@ -55,3 +55,9 @@ func TestCalcMD5File(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestCalcMD5ToByte(t *testing.T) {
+	test1 := []byte("12hri3r ffioggrewqwwekppef")
+	res := CalcMD5ToByte(test1)
+	log.Println(res, len(res))
+}

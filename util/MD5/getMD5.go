@@ -8,6 +8,12 @@ import (
 	"os"
 )
 
+func CalcMD5ToByte(content []byte) []byte {
+	ret := md5.New()
+	ret.Write(content)
+	return ret.Sum(nil)
+}
+
 func CalcMD5(content []byte) string {
 	ret := md5.New()
 	ret.Write(content)
