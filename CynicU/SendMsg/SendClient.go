@@ -56,16 +56,15 @@ func (c *Client) modifyNowPacketSize() {
 func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 	c.mu_.Lock()
 	defer c.mu_.Unlock()
-	c.allTime ++
 	var (
 		md5 []byte
 		n int
 		b []byte
-		errCh chan error
-		finCh chan error
+		//errCh chan error
+		//finCh chan error
 	)
-	errCh = make(chan error, c.retry)
-	finCh = make(chan error, c.retry)
+	//errCh = make(chan error, c.retry)
+	//finCh = make(chan error, c.retry)
 	f := func() {
 		var errF error
 		c.conn, errF = net.Dial("udp", c.addr)
@@ -75,52 +74,52 @@ func (c *Client) SendTo(msg *chatMsg.Msg) (err error) {
 		}
 		defer c.conn.Close()
 		b, errF = proto.Marshal(msg)
-		if errF != nil {
-			errCh <- errF
-			return
-		}
+		//if errF != nil {
+		//	errCh <- errF
+		//	return
+		//}
 		if len(b) <= c.nowPacketSize {
-			for retryTime := 0 ; retryTime < c.retry ; retryTime ++ {
+			//for retryTime := 0 ; retryTime < c.retry ; retryTime ++ {
 				md5 = MD5.CalcMD5ToByte(b)
 				_, errF = c.conn.Write(b)
-				if errF != nil {
-					c.lossTime ++
-				} else {
-					break
-				}
-			}
+				//if errF != nil {
+				//	c.lossTime ++
+				//} else {
+				//	break
+				//}
+			//}
 		} else {
-			errCh <- TooLongMsgErr
+			log.Println(TooLongMsgErr)
 		}
 		if errF != nil {
-			errCh <- errF
+			log.Println(errF)
 		}
 		var ack = make([]byte, AckLength)
 		n, err = c.conn.Read(ack)
 		if n != AckLength {
-			errCh <- AckLengthErr
+			log.Println(AckLengthErr)
 			return
 		}
 		if !IsEqual(ack, md5) {
-			errCh <- AckContentErr
+			log.Println(AckContentErr)
 			return
 		}
-		close(finCh)
+		//close(finCh)
 	}
-	go f()
-	select {
-	case err = <- errCh:
-		log.Println(err)
-		break
-	case <- time.After(c.TimeoutLimit):
-		err = TimeoutErr
-		break
-	case <- finCh:
-		break
-	}
-	if c.allTime >= c.modifyInterval {
-		c.modifyNowPacketSize()
-	}
+	f()
+	//select {
+	//case err = <- errCh:
+	//	log.Println(err)
+	//	break
+	//case <- time.After(c.TimeoutLimit):
+	//	err = TimeoutErr
+	//	break
+	//case <- finCh:
+	//	break
+	//}
+	//if c.allTime >= c.modifyInterval {
+	//	c.modifyNowPacketSize()
+	//}
 	return
 }
 

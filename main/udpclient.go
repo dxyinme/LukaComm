@@ -10,7 +10,7 @@ import (
 
 func main() {
 	startTime := time.Now()
-	var reqCount int = 10000
+	var reqCount int = 30
 	var wg sync.WaitGroup
 	wg.Add(reqCount)
 	var timeoutCnt = 0
@@ -60,9 +60,9 @@ func main() {
 			}
 			log.Println("OK")
 			wg.Done()
-		}("UUUUU")
+		}("UUUUUoooooooooooooooooooooooooooooooooooooooooooooooooooooooooIIIIs")
 	}
 	wg.Wait()
-	log.Printf("use time : %v ms in %v requests, timeoutCnt %v",
-		time.Now().Sub(startTime).Milliseconds(), reqCount, timeoutCnt)
+	log.Printf("use time : %v micro-seconds in %v requests, timeoutCnt %v",
+		time.Now().Sub(startTime).Microseconds(), reqCount, timeoutCnt)
 }

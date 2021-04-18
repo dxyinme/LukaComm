@@ -4,7 +4,6 @@ import (
 	"github.com/dxyinme/LukaComm/CynicU/SendMsg"
 	"log"
 	"os"
-	"time"
 )
 
 var (
@@ -12,17 +11,18 @@ var (
 )
 
 func recv(server *SendMsg.Server) {
-	var bgT string
+	//var bgT string
 	for {
-		msg := server.GetMsg()
+		//msg := server.GetMsg()
+		_ = server.GetMsg()
 		recvCntSend ++
-		log.Println(msg)
-		log.Println(recvCntSend)
+		//log.Println(msg)
+		//log.Println(recvCntSend)
 		if recvCntSend == 1 {
-			bgT = msg.SendTime
+			//bgT = msg.SendTime
 		}
 		if recvCntSend == 1000 {
-			log.Println(bgT, time.Now().String())
+			//log.Println(bgT, time.Now().String())
 		}
 	}
 }

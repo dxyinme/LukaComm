@@ -44,5 +44,5 @@ func main() {
 		}()
 	}
 	wg.Wait()
-	log.Printf("use time : %v ms", time.Now().Sub(startTime).Milliseconds())
+	log.Printf("use time : %v micro-second", time.Now().Sub(startTime).Microseconds())
 }

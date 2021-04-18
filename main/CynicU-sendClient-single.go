@@ -42,7 +42,7 @@ func main() {
 	}
 	wg.Wait()
 
-	log.Println("time use:", time.Now().Sub(startTime))
+	log.Println("time use [micro-second]:", time.Now().Sub(startTime).Microseconds())
 	log.Println("time out:", timeout)
 
 }
